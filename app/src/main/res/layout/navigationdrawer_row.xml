@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/navigation_drawer_width"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+
+            android:id="@+id/rowItemIcon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+             />
+
+        <TextView
+            android:textColor="@android:color/black"
+            android:textSize="25dp"
+            android:id="@+id/rowItemTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/rowItemIcon"
+            android:layout_toEndOf="@+id/rowItemIcon"
+            android:layout_marginLeft="10dp"
+            />
+
+        </RelativeLayout>
+
+</LinearLayout>

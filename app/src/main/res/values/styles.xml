@@ -1,0 +1,22 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/MyActionBar</item>
+    </style>
+
+    <style name="MyActionBar"
+        parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/sickday_blue</item>
+
+        <!-- Support library compatibility -->
+        <item name="background">@color/sickday_blue</item>
+    </style>
+
+    <color name="sickday_blue">#5D8DB5</color>
+    <color name="sickday_red">#A32626</color>
+
+</resources>

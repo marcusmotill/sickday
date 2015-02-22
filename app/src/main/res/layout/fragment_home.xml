@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+    <fragment
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        class="com.google.android.gms.maps.SupportMapFragment" />
+
+    <msqrd.sickday.AutoResizeTextView
+        android:layout_marginTop="10dp"
+        android:textSize="30sp"
+        android:text="Address"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvAddress"
+        android:maxLines="1"
+        android:layout_below="@+id/map"
+        android:layout_centerHorizontal="true" />
+
+    <msqrd.sickday.AutoResizeTextView
+        android:id="@+id/tvWarning"
+        android:textColor="@color/sickday_red"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/home_fragment_warning"
+        android:maxLines="3"
+        android:textSize="40dp"
+        android:layout_below="@+id/tvAddress"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <msqrd.sickday.AutoResizeTextView
+        android:padding="10dp"
+        android:background="@color/sickday_blue"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:id="@+id/tvCallSickDay"
+        android:text="@string/call_sickday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:maxLines="1"
+        android:layout_above="@+id/tvCall911"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <msqrd.sickday.AutoResizeTextView
+        android:padding="10dp"
+        android:background="@color/sickday_red"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:id="@+id/tvCall911"
+        android:text="@string/call_911"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:maxLines="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>
