@@ -7,12 +7,16 @@ import android.os.Handler;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+
 /**
  * Created by marcusmotill on 2/21/15.
  */
 public class Splash_Screen extends Activity {
     // Splash screen timer
-    private static int SPLASH_TIME_OUT = 5000;
+    private static int SPLASH_TIME_OUT = 3000;
     private Thread mSplashThread;
     ImageView logo;
     @Override
@@ -20,9 +24,14 @@ public class Splash_Screen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
 
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
+        ParseObject.registerSubclass(Insurance_Information.class);
+        Parse.initialize(this, "RzJTYueCw9qRWNWCwsQbHBjvZkmau4PbUco1pY1S", "OfNHqBlcE01sjKdyiGqjNZrJMAnoWBB3TpiaxjMv");
+
         logo = (ImageView) findViewById(R.id.splashLogo);
 
-        logo.animate().rotationY(720).setDuration(5000).setInterpolator(new LinearInterpolator()).start();
+        logo.animate().rotationY(1080).setDuration(SPLASH_TIME_OUT).setInterpolator(new LinearInterpolator()).start();
         final Splash_Screen sPlashScreen = this;
 
         // The thread to wait for splash screen events
@@ -43,7 +52,12 @@ public class Splash_Screen extends Activity {
 
                 // Run next activity
                 Intent intent = new Intent();
-                intent.setClass(sPlashScreen, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                if(ParseUser.getCurrentUser() == null){
+                    intent.setClass(sPlashScreen, Login_Activity.class);
+                }else{
+                    intent.setClass(sPlashScreen, MainActivity.class);
+                }
                 startActivity(intent);
                 interrupt();
             }

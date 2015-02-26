@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -31,9 +32,9 @@ import java.util.List;
  */
 public class ProfileBuilder_Fragment extends Fragment implements View.OnClickListener {
 
-    ViewPager mViewPager;
+    CustomViewPager mViewPager;
     TextView tvNext;
-    int NUMBER_OF_PAGES = 2;
+    int NUMBER_OF_PAGES = 3;
     static Context context;
 
     @Override
@@ -44,15 +45,19 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
         tvNext = (TextView) rootView.findViewById(R.id.tvNext);
         tvNext.setOnClickListener(this);
 
-        mViewPager = (android.support.v4.view.ViewPager) rootView.findViewById(R.id.profilePager);
+        mViewPager = (CustomViewPager) rootView.findViewById(R.id.profilePager);
+        mViewPager.setPagingEnabled(false);
         mViewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                if(position == 0){
+                if (position == 0) {
                     return new ProfileBuilder_Fragment_1();
-                }else if(position == 1){
+                } else if (position == 1) {
                     return new ProfileBuilder_Fragment_2();
-                }else{
+                } else if(position == 2){
+                    return new ProfileBuilder_Fragment_3();
+                }
+                else {
                     return new ProfileBuilder_Fragment_1();
                 }
 
@@ -83,10 +88,13 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
         int id = v.getId();
         if (id == tvNext.getId()) {
 
-            if(mViewPager.getCurrentItem() == 0){
+            if (mViewPager.getCurrentItem() == 0) {
                 ProfileBuilder_Fragment_1.addUser();
-            }else if(mViewPager.getCurrentItem() == 1){
+            } else if (mViewPager.getCurrentItem() == 1) {
                 ProfileBuilder_Fragment_2.addInsuranceInformation();
+                tvNext.setVisibility(View.GONE);
+            } else if (mViewPager.getCurrentItem() == 2){
+
             }
 
             if (mViewPager.getCurrentItem() != (NUMBER_OF_PAGES - 1))
@@ -128,8 +136,6 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
             tvPassword = (EditText) rootView.findViewById(R.id.formPassword);
 
 
-
-
             return rootView;
         }
 
@@ -143,9 +149,9 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
         public static void addUser() {
             if (tvPassword.getText().toString().length() < 6) {
                 Toast.makeText(context, context.getString(R.string.password_length_error), Toast.LENGTH_LONG).show();
-            }else if(tvFirstName.getText().toString() == null | tvLastName.getText().toString() == null | tvEmail.getText().toString() == null | tvPassword.getText().toString() == null){
+            } else if (tvFirstName.getText().toString() == null | tvLastName.getText().toString() == null | tvEmail.getText().toString() == null | tvPassword.getText().toString() == null) {
                 Toast.makeText(context, context.getString(R.string.profilebuilder_null_field), Toast.LENGTH_LONG).show();
-            }else{
+            } else {
                 ParseUser user = new ParseUser();
                 user.setUsername(tvEmail.getText().toString());
                 user.setPassword(tvPassword.getText().toString());
@@ -202,20 +208,42 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
         }
 
         private static void addInsuranceInformation() {
-            if(etInsuranceName.getText().toString() != null){
+            if (etInsuranceName.getText().toString() != null) {
                 final Insurance_Information insurance_information = new Insurance_Information();
 
                 insurance_information.setUserName(ParseUser.getCurrentUser().getUsername());
                 insurance_information.setInsuranceName(etInsuranceName.getText().toString());
                 insurance_information.saveInBackground(new SaveCallback() {
                     public void done(ParseException e) {
-                        if(e != null)
+                        if (e != null){
                             e.printStackTrace();
+                        }else{
+                            Log.i("Activity Name", context.getClass().getSimpleName());
+                            if(context.getClass().getSimpleName().equals(MainActivity.class.getSimpleName())){
+
+                            }else if(context.getClass().getSimpleName().equals(ProfileBuilder_Activity.class.getSimpleName())){
+
+                            }
+                        }
+
                     }
                 });
-            }else {
+            } else {
                 Toast.makeText(context, context.getString(R.string.profilebuilder_null_field), Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+    public static class ProfileBuilder_Fragment_3 extends Fragment{
+        TextView tvEmailHolder;
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.profilebuilder_fragment3, container, false);
+
+            tvEmailHolder = (TextView) rootView.findViewById(R.id.tvSuccessUserName);
+            tvEmailHolder.setText(ParseUser.getCurrentUser().getEmail());
+
+            return rootView;
         }
     }
 }

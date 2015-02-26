@@ -1,9 +1,6 @@
 <resources>
-    <string name="app_name">SickDay</string>
+    <string name="app_name">Sickday</string>
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
     <string name="home_menu_item">Home</string>
     <string name="insurance_menu_item">Insurance</string>
     <string name="help_menu_item">Help</string>
@@ -24,6 +21,11 @@
     <string name="password_length_error">Password must be at least six characters long</string>
     <string name="profilebuilder_insurance_name">Insurance Name</string>
     <string name="profilebuilder_null_field">All fields are required</string>
+    <string name="welcome_message">Welcome to Sickday, please log in</string>
+    <string name="log_in">Log In</string>
+    <string name="incorrect_login">The information you supplied is not correct, try again.</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_up_success">Congratulations!  You are now registered with Sickday!</string>
+    <string name="done">Done</string>
 
-    <string name="app_id">1421088858189724</string>
 </resources>

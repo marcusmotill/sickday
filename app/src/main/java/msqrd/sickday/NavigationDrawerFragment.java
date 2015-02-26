@@ -28,6 +28,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseUser;
+
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
@@ -59,6 +61,7 @@ public class NavigationDrawerFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
     private View mFragmentContainerView;
+    private TextView tvProfileName;
 
 
     private int mCurrentSelectedPosition = 0;
@@ -76,6 +79,7 @@ public class NavigationDrawerFragment extends Fragment {
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
+
 
         if (savedInstanceState != null) {
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
@@ -98,6 +102,12 @@ public class NavigationDrawerFragment extends Fragment {
                              Bundle savedInstanceState) {
         View mainDrawer = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView = (ListView) mainDrawer.findViewById(R.id.navDrawerListView);
+        tvProfileName = (TextView) mainDrawer.findViewById(R.id.profileName);
+
+        if (ParseUser.getCurrentUser() != null) {
+            tvProfileName.setText(ParseUser.getCurrentUser().get("firstname").toString() + " " + ParseUser.getCurrentUser().get("lastname").toString());
+        }
+
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -105,10 +115,10 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
         mDrawerListView.setAdapter(new NavigationDrawerAdapter(getActivity().getApplicationContext(),
-                new String[] { getString(R.string.home_menu_item),
-                               getString(R.string.insurance_menu_item),
-                               getString(R.string.help_menu_item),
-                               getString(R.string.physician_mode_menu_item)}));
+                new String[]{getString(R.string.home_menu_item),
+                        getString(R.string.insurance_menu_item),
+                        getString(R.string.help_menu_item),
+                        getString(R.string.physician_mode_menu_item)}));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mainDrawer;
     }
@@ -288,6 +298,7 @@ public class NavigationDrawerFragment extends Fragment {
         Context context;
         private String[] listTitles;
         private int[] listIcons;
+
         public NavigationDrawerAdapter(Context context, String[] listTitles) {
             super(context, R.layout.navigationdrawer_row, listTitles);
             this.context = context;
@@ -313,19 +324,19 @@ public class NavigationDrawerFragment extends Fragment {
 
             int width = dpToPx(60);
             int height = 0;
-            if(position == 0){
+            if (position == 0) {
                 height = dpToPx(30);
                 lp.setMargins(dpToPx(10), dpToPx(10), dpToPx(10), dpToPx(10));
-            }else if(position == 1){
+            } else if (position == 1) {
                 height = dpToPx(43);
                 lp.setMargins(dpToPx(10), dpToPx(10), dpToPx(10), dpToPx(10));
-            }else if(position == 2){
+            } else if (position == 2) {
                 height = dpToPx(40);
-                width  = dpToPx(40);
+                width = dpToPx(40);
                 lp.setMargins(dpToPx(20), dpToPx(10), dpToPx(20), dpToPx(10));
-            }else if(position == 3){
+            } else if (position == 3) {
                 height = dpToPx(40);
-                width  = dpToPx(40);
+                width = dpToPx(40);
                 lp.setMargins(dpToPx(20), dpToPx(10), dpToPx(20), dpToPx(10));
             }
             imageView.getLayoutParams().height = height;
