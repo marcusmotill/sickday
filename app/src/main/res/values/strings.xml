@@ -15,4 +15,15 @@
     <string name="call_sickday">Call Sickday</string>
     <string name="call_911">Call 911</string>
     <string name="check_connection">Please check your connection and try again</string>
+    <string name="profilebuilder_intro">We need to get some information from before we can visit you...anywhere!</string>
+    <string name="profilebuilder_first_name">First Name</string>
+    <string name="profilebuilder_last_name">Last Name</string>
+    <string name="profilebuilder_next_page">Next</string>
+    <string name="profilebuilder_email">Email Address</string>
+    <string name="profulebuilder_password">Password</string>
+    <string name="password_length_error">Password must be at least six characters long</string>
+    <string name="profilebuilder_insurance_name">Insurance Name</string>
+    <string name="profilebuilder_null_field">All fields are required</string>
+
+    <string name="app_id">1421088858189724</string>
 </resources>

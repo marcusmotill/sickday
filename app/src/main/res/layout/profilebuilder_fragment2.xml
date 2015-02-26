@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <ScrollView
+        android:id="@+id/formscrollview2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:isScrollContainer="false">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/formInsuranceName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/sickday_blue"
+                android:hint="@string/profilebuilder_insurance_name"
+                android:padding="10dp"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

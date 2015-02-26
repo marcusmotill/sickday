@@ -2,6 +2,12 @@ package msqrd.sickday;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -20,8 +26,17 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -46,16 +61,39 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
+        ParseObject.registerSubclass(Insurance_Information.class);
+        Parse.initialize(this, "RzJTYueCw9qRWNWCwsQbHBjvZkmau4PbUco1pY1S", "OfNHqBlcE01sjKdyiGqjNZrJMAnoWBB3TpiaxjMv");
+
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
+
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, new Home_Fragment())
-                .commit();
+        if(position == 0){
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, new Home_Fragment())
+                    .commit();
+        }else if(position == 1){
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, new ProfileBuilder_Fragment())
+                    .commit();
+        }
+
+
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+
 
     public void onSectionAttached(int number) {
         switch (number) {
