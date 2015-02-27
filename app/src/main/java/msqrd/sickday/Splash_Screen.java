@@ -25,9 +25,6 @@ public class Splash_Screen extends Activity {
         setContentView(R.layout.splash_screen);
 
         // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
-        ParseObject.registerSubclass(Insurance_Information.class);
-        Parse.initialize(this, "RzJTYueCw9qRWNWCwsQbHBjvZkmau4PbUco1pY1S", "OfNHqBlcE01sjKdyiGqjNZrJMAnoWBB3TpiaxjMv");
 
         logo = (ImageView) findViewById(R.id.splashLogo);
 

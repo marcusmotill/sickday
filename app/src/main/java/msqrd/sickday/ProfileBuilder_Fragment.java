@@ -1,5 +1,6 @@
 package msqrd.sickday;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,7 +35,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
 
     CustomViewPager mViewPager;
     TextView tvNext;
-    int NUMBER_OF_PAGES = 3;
+    int NUMBER_OF_PAGES = 2;
     static Context context;
 
     @Override
@@ -54,8 +55,6 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                     return new ProfileBuilder_Fragment_1();
                 } else if (position == 1) {
                     return new ProfileBuilder_Fragment_2();
-                } else if(position == 2){
-                    return new ProfileBuilder_Fragment_3();
                 }
                 else {
                     return new ProfileBuilder_Fragment_1();
@@ -92,13 +91,25 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                 ProfileBuilder_Fragment_1.addUser();
             } else if (mViewPager.getCurrentItem() == 1) {
                 ProfileBuilder_Fragment_2.addInsuranceInformation();
-                tvNext.setVisibility(View.GONE);
-            } else if (mViewPager.getCurrentItem() == 2){
+                if(context.getClass().getSimpleName().equals(MainActivity.class.getSimpleName())){
+
+
+
+                }else if(context.getClass().getSimpleName().equals(ProfileBuilder_Activity.class.getSimpleName())){
+                    Intent startActivity = new Intent(context, MainActivity.class);
+                    startActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(startActivity);
+                }
 
             }
 
             if (mViewPager.getCurrentItem() != (NUMBER_OF_PAGES - 1))
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+
+            if (mViewPager.getCurrentItem() == 1) {
+                tvNext.setText(getString(R.string.done));
+
+            }
         }
     }
 
@@ -162,6 +173,9 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
 
                 // other fields can be set just like with ParseObject
                 //user.put("phone", "650-253-0000");
+                final ProgressDialog dialog = ProgressDialog.show(context, "",
+                        "Loading. Please wait...", true);
+                dialog.setIndeterminate(true);
 
                 user.signUpInBackground(new SignUpCallback() {
                     public void done(ParseException e) {
@@ -171,6 +185,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                                 public void done(ParseUser user, ParseException e) {
                                     if (user != null) {
                                         Log.i("User Login", "Success");
+                                        dialog.dismiss();
                                     } else {
                                         Log.i("User Login", "Fail");
                                     }
@@ -182,6 +197,10 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                         }
                     }
                 });
+
+                do{
+                    dialog.show();
+                }while(ParseUser.getCurrentUser() == null);
             }
 
         }
@@ -196,9 +215,10 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
 
             etInsuranceName = (EditText) rootView.findViewById(R.id.formInsuranceName);
 
-
             return rootView;
         }
+
+
 
         @Override
         public void onClick(View v) {
@@ -219,11 +239,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                             e.printStackTrace();
                         }else{
                             Log.i("Activity Name", context.getClass().getSimpleName());
-                            if(context.getClass().getSimpleName().equals(MainActivity.class.getSimpleName())){
 
-                            }else if(context.getClass().getSimpleName().equals(ProfileBuilder_Activity.class.getSimpleName())){
-
-                            }
                         }
 
                     }
@@ -234,16 +250,5 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
         }
     }
 
-    public static class ProfileBuilder_Fragment_3 extends Fragment{
-        TextView tvEmailHolder;
-        @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.profilebuilder_fragment3, container, false);
 
-            tvEmailHolder = (TextView) rootView.findViewById(R.id.tvSuccessUserName);
-            tvEmailHolder.setText(ParseUser.getCurrentUser().getEmail());
-
-            return rootView;
-        }
-    }
 }

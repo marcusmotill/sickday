@@ -11,7 +11,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 /**
@@ -34,6 +36,8 @@ public class Login_Activity extends Activity implements View.OnClickListener {
         tvIncorrectInfo.setVisibility(View.INVISIBLE);
         bLogin = (Button) findViewById(R.id.loginButton);
         bSignUp = (Button) findViewById(R.id.registerButton);
+
+
 
         bSignUp.setOnClickListener(this);
         bLogin.setOnClickListener(this);

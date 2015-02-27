@@ -21,6 +21,7 @@
 
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/sickday_logo_small"
         android:label="@string/app_name"

@@ -31,15 +31,7 @@
             android:textSize="50sp"
             android:text="Johnny Appleseed"
             android:textColor="@android:color/black" />
-        <TextView
-            android:layout_marginRight="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/editProfile"
-            android:text="Edit Profile"
-            android:textColor="@android:color/black"
-            android:layout_alignBottom="@+id/drawerProfilePicture"
-            android:layout_alignRight="@+id/profileName"/>
+
 
         <View
             android:layout_width="match_parent"
