@@ -24,6 +24,7 @@
                 android:textAppearance="@android:style/TextAppearance.Large" />
 
             <EditText
+                android:textCursorDrawable="@null"
                 android:id="@+id/formFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,6 +38,7 @@
                 android:textColorHint="@android:color/white" />
 
             <EditText
+                android:textCursorDrawable="@null"
                 android:id="@+id/formLastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,6 +52,7 @@
                 android:textColorHint="@android:color/white" />
 
             <EditText
+                android:textCursorDrawable="@null"
                 android:id="@+id/formEmail"
                 android:inputType="textEmailAddress"
                 android:layout_width="match_parent"
@@ -64,6 +67,7 @@
                 android:textColorHint="@android:color/white" />
 
             <EditText
+                android:textCursorDrawable="@null"
                 android:id="@+id/formPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

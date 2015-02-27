@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 
 import com.parse.Parse;
+import com.parse.ParseAnalytics;
 import com.parse.ParseObject;
 
 import java.io.FileDescriptor;
@@ -53,6 +54,7 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -78,7 +80,7 @@ public class MainActivity extends ActionBarActivity
                     .commit();
         }else if(position == 1){
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, new ProfileBuilder_Fragment())
+                    .replace(R.id.container, new Insurance_Information_Fragment())
                     .commit();
         }
 

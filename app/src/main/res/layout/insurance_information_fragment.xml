@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/button">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvFirstNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/profilebuilder_first_name"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+
+            <EditText
+                android:textCursorDrawable="@null"
+                android:id="@+id/etInsuranceInformationFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/sickday_blue"
+                android:hint="@string/profilebuilder_first_name"
+                android:inputType="textEmailAddress"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="10dp"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:layout_below="@+id/tvFirstNameLabel" />
+
+            <TextView
+                android:id="@+id/tvLastNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_below="@+id/etInsuranceInformationFirstName"
+                android:text="@string/profilebuilder_last_name"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+
+            <EditText
+                android:textCursorDrawable="@null"
+                android:id="@+id/etInsuranceInformationLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/sickday_blue"
+                android:hint="@string/profilebuilder_last_name"
+                android:inputType="textEmailAddress"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="10dp"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:layout_below="@+id/tvLastNameLabel" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/bEditProfile"
+        android:text="@string/edit_profile"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/sickday_blue"/>
+
+    <Button
+        android:layout_above="@+id/bEditProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_view_insurance"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@android:color/white"
+        android:background="@color/sickday_blue"
+        android:id="@+id/bEditInsurance" />
+</RelativeLayout>

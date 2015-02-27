@@ -61,7 +61,7 @@ public class NavigationDrawerFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
     private View mFragmentContainerView;
-    private TextView tvProfileName;
+    private static TextView tvProfileName;
 
 
     private int mCurrentSelectedPosition = 0;
@@ -103,10 +103,8 @@ public class NavigationDrawerFragment extends Fragment {
         View mainDrawer = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView = (ListView) mainDrawer.findViewById(R.id.navDrawerListView);
         tvProfileName = (TextView) mainDrawer.findViewById(R.id.profileName);
+        updateProfileName();
 
-        if (ParseUser.getCurrentUser() != null) {
-            tvProfileName.setText(ParseUser.getCurrentUser().get("firstname").toString() + " " + ParseUser.getCurrentUser().get("lastname").toString());
-        }
 
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -121,6 +119,13 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.physician_mode_menu_item)}));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mainDrawer;
+    }
+
+    public static void updateProfileName() {
+
+        if (ParseUser.getCurrentUser() != null) {
+            tvProfileName.setText(ParseUser.getCurrentUser().get("firstname").toString() + " " + ParseUser.getCurrentUser().get("lastname").toString());
+        }
     }
 
     public boolean isDrawerOpen() {

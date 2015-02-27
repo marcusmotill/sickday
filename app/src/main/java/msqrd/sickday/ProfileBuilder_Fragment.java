@@ -170,9 +170,6 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                 user.put("firstname", tvFirstName.getText().toString());
                 user.put("lastname", tvLastName.getText().toString());
 
-
-                // other fields can be set just like with ParseObject
-                //user.put("phone", "650-253-0000");
                 final ProgressDialog dialog = ProgressDialog.show(context, "",
                         "Loading. Please wait...", true);
                 dialog.setIndeterminate(true);
@@ -198,9 +195,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                     }
                 });
 
-                do{
-                    dialog.show();
-                }while(ParseUser.getCurrentUser() == null);
+
             }
 
         }

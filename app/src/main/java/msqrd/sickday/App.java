@@ -3,6 +3,7 @@ package msqrd.sickday;
 import android.app.Application;
 
 import com.parse.Parse;
+import com.parse.ParseCrashReporting;
 import com.parse.ParseObject;
 
 /**
@@ -13,6 +14,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Parse.enableLocalDatastore(this);
+        ParseCrashReporting.enable(this);
         ParseObject.registerSubclass(Insurance_Information.class);
         Parse.initialize(this, "RzJTYueCw9qRWNWCwsQbHBjvZkmau4PbUco1pY1S", "OfNHqBlcE01sjKdyiGqjNZrJMAnoWBB3TpiaxjMv");
     }

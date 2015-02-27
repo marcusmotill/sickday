@@ -27,5 +27,8 @@
     <string name="sign_up">Sign Up</string>
     <string name="sign_up_success">Congratulations!  You are now registered with Sickday!</string>
     <string name="done">Done</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="edit_view_insurance">Edit or View Insurance Information</string>
+    <string name="save">Save</string>
 
 </resources>

@@ -15,6 +15,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:textCursorDrawable="@null"
                 android:id="@+id/formInsuranceName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
