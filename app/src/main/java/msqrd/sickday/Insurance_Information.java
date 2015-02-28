@@ -25,4 +25,8 @@ public class Insurance_Information extends ParseObject {
     public void setInsuranceName(String insuranceName){
         put("insuranceName", insuranceName);
     }
+
+    public void setUser(ParseUser user){
+        put("user", user);
+    }
 }

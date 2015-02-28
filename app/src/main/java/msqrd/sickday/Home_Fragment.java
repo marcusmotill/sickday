@@ -27,6 +27,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,7 +38,7 @@ import java.util.Locale;
 /**
  * Created by marcusmotill on 2/21/15.
  */
-public class Home_Fragment extends Fragment implements OnMapReadyCallback {
+public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.OnClickListener {
 
     SupportMapFragment mapFragment;
     TextView address, tvCallSickDay, tvCall911;
@@ -46,6 +49,8 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback {
         address = (TextView) rootView.findViewById(R.id.tvAddress);
         tvCallSickDay = (TextView) rootView.findViewById(R.id.tvCallSickDay);
         tvCall911 = (TextView) rootView.findViewById(R.id.tvCall911);
+
+        tvCallSickDay.setOnClickListener(this);
 
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -72,8 +77,6 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(final GoogleMap googleMap) {
-
-
 
         googleMap.clear();
         setCurrentLocation(googleMap);
@@ -119,7 +122,6 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback {
                 Log.e("Address from lat,long ;", addressString);
             } catch (IOException e) {
                 e.printStackTrace();
-                //mapFragment.getMapAsync(this);
                 address.setText(getString(R.string.check_connection));
             }
 
@@ -141,5 +143,35 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback {
         return actionBarHeight;
     }
 
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+
+        if(id == tvCallSickDay.getId()){
+            requestSickday();
+        }
+    }
+
+    private void requestSickday() {
+
+        Sickday_Request sickday_request = new Sickday_Request();
+
+        sickday_request.setUserName(ParseUser.getCurrentUser().getUsername());
+        sickday_request.setPendingRequest(true);
+        sickday_request.setUser(ParseUser.getCurrentUser());
+        sickday_request.setInsurance(ParseUser.getCurrentUser());
+
+        sickday_request.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null){
+                    Log.i("Pending Request", "Success");
+                }else{
+                    Log.i("Pending Request", "Fail");
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 }
 

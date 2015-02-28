@@ -16,6 +16,7 @@ public class App extends Application {
         Parse.enableLocalDatastore(this);
         ParseCrashReporting.enable(this);
         ParseObject.registerSubclass(Insurance_Information.class);
+        ParseObject.registerSubclass(Sickday_Request.class);
         Parse.initialize(this, "RzJTYueCw9qRWNWCwsQbHBjvZkmau4PbUco1pY1S", "OfNHqBlcE01sjKdyiGqjNZrJMAnoWBB3TpiaxjMv");
     }
 }

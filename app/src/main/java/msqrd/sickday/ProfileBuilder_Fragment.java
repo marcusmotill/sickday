@@ -19,9 +19,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
@@ -228,12 +232,44 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
 
                 insurance_information.setUserName(ParseUser.getCurrentUser().getUsername());
                 insurance_information.setInsuranceName(etInsuranceName.getText().toString());
+                insurance_information.setUser(ParseUser.getCurrentUser());
                 insurance_information.saveInBackground(new SaveCallback() {
                     public void done(ParseException e) {
                         if (e != null){
                             e.printStackTrace();
+
                         }else{
                             Log.i("Activity Name", context.getClass().getSimpleName());
+                            ParseQuery query = new ParseQuery("Insurance");
+
+                            query.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
+                            query.findInBackground(new FindCallback() {
+
+                                @Override
+                                public void done(List list, ParseException e) {
+                                    if (e == null) {
+                                        for (Object dealsObject : list) {
+                                            // use dealsObject.get('columnName') to access the properties of the Deals object.
+                                            ParseObject parseObject = (ParseObject)dealsObject;
+                                            ParseUser user = ParseUser.getCurrentUser();
+                                            user.put("insurance", parseObject);
+                                            user.saveInBackground(new SaveCallback() {
+                                                @Override
+                                                public void done(ParseException e) {
+                                                    if(e == null){
+                                                        Log.i("Insurance Added", "Success");
+                                                    }else{
+                                                        Log.i("Insurance Added", "Fail");
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    } else {
+                                        Log.d("Brand", "Error: " + e.getMessage());
+                                    }
+                                }
+                            });
 
                         }
 
