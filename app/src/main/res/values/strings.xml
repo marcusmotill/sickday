@@ -2,15 +2,15 @@
     <string name="app_name">Sickday</string>
 
     <string name="home_menu_item">Home</string>
-    <string name="insurance_menu_item">Insurance</string>
+    <string name="profile_menu_item">Profile</string>
     <string name="help_menu_item">Help</string>
-    <string name="physician_mode_menu_item">Physician Mode</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="share_sickday">Share Sickday</string>
     <string name="home_fragment_warning">If you have chest pain, shortness of breath, head trauma, or have loss of consciousness, go directly to an E.R. or call 911.</string>
     <string name="call_sickday">Call Sickday</string>
     <string name="call_911">Call 911</string>
+    <string name="request_sickday">Request Sickday</string>
     <string name="check_connection">Please check your connection and try again</string>
     <string name="profilebuilder_intro">We need to get some information from before we can visit you...anywhere!</string>
     <string name="profilebuilder_first_name">First Name</string>
@@ -30,5 +30,8 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="edit_view_insurance">Edit or View Insurance Information</string>
     <string name="save">Save</string>
-
+    <string name="login_popup_text">To view or edit insurance information please re-enter your password.</string>
+    <string name="cancel">Cancel</string>
+    <string name="are_you_sure_911">Are you sure you want to call 911?</string>
+    <string name="yes_sure">Yes, call 911</string>
 </resources>

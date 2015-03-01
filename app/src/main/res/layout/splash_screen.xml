@@ -18,13 +18,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/sickday_logo_small"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/splashlogowords"
         android:layout_centerHorizontal="true" />
 
     <ImageView
+        android:id="@+id/splashlogowords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/sickday_logo_words"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <msqrd.sickday.AutoResizeTextView
+        android:layout_margin="5dp"
+        android:id="@+id/tvWarning"
+        android:textColor="@color/sickday_red"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/home_fragment_warning"
+        android:maxLines="3"
+        android:textSize="40dp"
+        android:layout_alignTop="@+id/splashFooter"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

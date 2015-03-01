@@ -11,9 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 /**
@@ -31,7 +29,7 @@ public class Login_Activity extends Activity implements View.OnClickListener {
         setContentView(R.layout.login_activity);
 
         etEmail = (EditText) findViewById(R.id.welcomeEmail);
-        etPassword = (EditText) findViewById(R.id.welcomePassword);
+        etPassword = (EditText) findViewById(R.id.loginPopupPassword);
         tvIncorrectInfo = (TextView) findViewById(R.id.tvIncorrectLogin);
         tvIncorrectInfo.setVisibility(View.INVISIBLE);
         bLogin = (Button) findViewById(R.id.loginButton);

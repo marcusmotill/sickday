@@ -114,9 +114,8 @@ public class NavigationDrawerFragment extends Fragment {
         });
         mDrawerListView.setAdapter(new NavigationDrawerAdapter(getActivity().getApplicationContext(),
                 new String[]{getString(R.string.home_menu_item),
-                        getString(R.string.insurance_menu_item),
-                        getString(R.string.help_menu_item),
-                        getString(R.string.physician_mode_menu_item)}));
+                        getString(R.string.profile_menu_item),
+                        getString(R.string.help_menu_item)}));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mainDrawer;
     }
@@ -316,8 +315,7 @@ public class NavigationDrawerFragment extends Fragment {
             listIcons = new int[]{
                     R.drawable.home_icon,
                     R.drawable.insurance_info_icon,
-                    R.drawable.help_icon,
-                    R.drawable.physician_mode};
+                    R.drawable.help_icon};
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = inflater.inflate(R.layout.navigationdrawer_row, parent, false);

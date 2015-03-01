@@ -2,37 +2,20 @@ package msqrd.sickday;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.ParcelFileDescriptor;
-import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 
-import com.parse.Parse;
 import com.parse.ParseAnalytics;
-import com.parse.ParseObject;
-
-import java.io.FileDescriptor;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 
 public class MainActivity extends ActionBarActivity
@@ -80,7 +63,11 @@ public class MainActivity extends ActionBarActivity
                     .commit();
         }else if(position == 1){
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, new Insurance_Information_Fragment())
+                    .replace(R.id.container, new Edit_Information_Main())
+                    .commit();
+        }else if(position == 2){
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, new Help_Fragment())
                     .commit();
         }
 
@@ -101,14 +88,12 @@ public class MainActivity extends ActionBarActivity
                 mTitle = getString(R.string.home_menu_item);
                 break;
             case 2:
-                mTitle = getString(R.string.insurance_menu_item);
+                mTitle = getString(R.string.profile_menu_item);
                 break;
             case 3:
                 mTitle = getString(R.string.help_menu_item);
                 break;
-            case 4:
-                mTitle = getString(R.string.physician_mode_menu_item);
-                break;
+
         }
     }
 
