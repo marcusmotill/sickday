@@ -1,46 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
-    <ImageView
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <!--<ImageView
         android:id="@+id/splashFooter"
-        android:scaleType="fitEnd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/splashscreen_footer"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <ImageView
-        android:id="@+id/splashLogo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/sickday_logo_small"
-        android:layout_below="@+id/splashlogowords"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/splashscreen_background" />-->
 
-    <ImageView
-        android:id="@+id/splashlogowords"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/sickday_logo_words"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <msqrd.sickday.AutoResizeTextView
-        android:layout_margin="5dp"
-        android:id="@+id/tvWarning"
-        android:textColor="@color/sickday_red"
-        android:gravity="center"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/home_fragment_warning"
-        android:maxLines="3"
-        android:textSize="40dp"
-        android:layout_alignTop="@+id/splashFooter"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_height="match_parent">
+       <!--android:background="#48000000"-->
 
+
+        <ImageView
+            android:id="@+id/splashLogo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/logohq" />
+
+        <ImageView
+            android:id="@+id/splashlogowords"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/white"
+            android:src="@drawable/sickday_logo_words" />
+
+        <msqrd.sickday.AutoResizeTextView
+            android:id="@+id/tvWarning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="#CCFFFFFF"
+            android:gravity="center"
+            android:maxLines="3"
+            android:text="@string/home_fragment_warning"
+            android:textColor="@color/sickday_red"
+            android:textSize="40dp" />
+    </RelativeLayout>
 </RelativeLayout>

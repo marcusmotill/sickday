@@ -40,6 +40,7 @@
         <activity android:name=".MainActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Login_Activity" android:screenOrientation="portrait"/>
         <activity android:name=".ProfileBuilder_Activity" android:screenOrientation="portrait"/>
+        <activity android:name=".Address_Activity" android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

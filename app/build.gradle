@@ -25,6 +25,5 @@ dependencies {
     compile 'com.google.android.gms:play-services:6.5.87'
     compile files('src/main/java/bolts-android-1.1.4.jar')
     compile files('src/main/java/Parse-1.8.2.jar')
-    compile 'com.parse.bolts:bolts-android:1.+'
     compile files('src/main/java/ParseCrashReporting-1.8.2.jar')
 }

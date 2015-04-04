@@ -139,6 +139,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
         static EditText tvLastName;
         static EditText tvEmail;
         static EditText tvPassword;
+        static EditText tvPhoneNumber;
 
 
         @Override
@@ -149,6 +150,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
             tvLastName = (EditText) rootView.findViewById(R.id.formLastName);
             tvEmail = (EditText) rootView.findViewById(R.id.formEmail);
             tvPassword = (EditText) rootView.findViewById(R.id.formPassword);
+            tvPhoneNumber = (EditText) rootView.findViewById(R.id.formPhoneNumber);
 
 
             return rootView;
@@ -173,6 +175,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                 user.setEmail(tvEmail.getText().toString());
                 user.put("firstname", tvFirstName.getText().toString());
                 user.put("lastname", tvLastName.getText().toString());
+                user.put("phoneNumber", tvPhoneNumber.getText().toString());
 
                 final ProgressDialog dialog = ProgressDialog.show(context, "",
                         "Loading. Please wait...", true);

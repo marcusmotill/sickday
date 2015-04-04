@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -81,6 +82,7 @@ public class NavigationDrawerFragment extends Fragment {
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
 
+
         if (savedInstanceState != null) {
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
@@ -104,6 +106,7 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerListView = (ListView) mainDrawer.findViewById(R.id.navDrawerListView);
         tvProfileName = (TextView) mainDrawer.findViewById(R.id.profileName);
         updateProfileName();
+
 
 
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

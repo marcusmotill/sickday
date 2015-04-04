@@ -61,6 +61,31 @@
                 android:textColorHint="@android:color/white"
                 android:layout_below="@+id/tvLastNameLabel" />
 
+            <TextView
+                android:id="@+id/tvPhoneLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_below="@+id/etInsuranceInformationLastName"
+                android:text="@string/profilebuilder_phonenumber"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+
+            <EditText
+                android:textCursorDrawable="@null"
+                android:id="@+id/etInsuranceInformationPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/sickday_blue"
+                android:hint="@string/profilebuilder_phonenumber"
+                android:inputType="phone"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="10dp"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:layout_below="@+id/tvPhoneLabel" />
+
         </RelativeLayout>
     </ScrollView>
 

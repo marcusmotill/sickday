@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +26,8 @@ public class Login_Activity extends Activity implements View.OnClickListener {
     EditText etEmail, etPassword;
     TextView tvIncorrectInfo;
     Button bLogin, bSignUp;
+    ImageView logo;
+    RelativeLayout contentLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +40,51 @@ public class Login_Activity extends Activity implements View.OnClickListener {
         tvIncorrectInfo.setVisibility(View.INVISIBLE);
         bLogin = (Button) findViewById(R.id.loginButton);
         bSignUp = (Button) findViewById(R.id.registerButton);
+        logo = (ImageView) findViewById(R.id.imLogo);
+        contentLayout = (RelativeLayout) findViewById(R.id.contentLayout);
 
-
-
-        bSignUp.setOnClickListener(this);
         bLogin.setOnClickListener(this);
+        bSignUp.setOnClickListener(this);
+
+        final Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        Animation slide = AnimationUtils.loadAnimation(this, R.anim.overshoot);
+
+
+        etEmail.setVisibility(View.INVISIBLE);
+        etPassword.setVisibility(View.INVISIBLE);
+        contentLayout.setVisibility(View.INVISIBLE);
+        bSignUp.setVisibility(View.INVISIBLE);
+        bLogin.setVisibility(View.INVISIBLE);
+        slide.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                etEmail.setVisibility(View.VISIBLE);
+                etPassword.setVisibility(View.VISIBLE);
+                contentLayout.setVisibility(View.VISIBLE);
+                bSignUp.setVisibility(View.VISIBLE);
+                bLogin.setVisibility(View.VISIBLE);
+
+                etEmail.startAnimation(fadeIn);
+                etPassword.startAnimation(fadeIn);
+                contentLayout.startAnimation(fadeIn);
+                bLogin.startAnimation(fadeIn);
+                bSignUp.startAnimation(fadeIn);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        logo.startAnimation(slide);
+
+
     }
 
     @Override

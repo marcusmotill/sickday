@@ -11,6 +11,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,14 +23,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -40,34 +49,61 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 /**
  * Created by marcusmotill on 2/21/15.
  */
-public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.OnClickListener {
+public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.OnClickListener, AdapterView.OnItemClickListener {
 
-    SupportMapFragment mapFragment;
-    TextView address, tvCallSickDay, tvCall911, tvRequestSickday;
-    ImageView mapOverlay;
+
+    static SupportMapFragment mapFragment;
+    TextView tvCallSickDay, tvCall911;
+    AutoCompleteTextView autoCompleteTextView;
+    ImageView mapOverlay, imRequestSickday;
     FrameLayout mapHolder;
     View rootView;
+    String addressString;
+    static double lng, lat;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        address = (TextView) rootView.findViewById(R.id.tvAddress);
+        //address = (TextView) rootView.findViewById(R.id.tvAddress);
+        autoCompleteTextView = (AutoCompleteTextView) rootView.findViewById(R.id.automcompleteView);
+        PlacesAutoCompleteAdapter autocompleteadapter = new PlacesAutoCompleteAdapter(getActivity(), R.layout.list_item);
+        autoCompleteTextView.setAdapter(autocompleteadapter);
+        autoCompleteTextView.setOnItemClickListener(this);
+
         tvCallSickDay = (TextView) rootView.findViewById(R.id.tvCallSickDay);
         tvCall911 = (TextView) rootView.findViewById(R.id.tvCall911);
-        tvRequestSickday = (TextView) rootView.findViewById(R.id.tvRequestSickDay);
+        imRequestSickday = (ImageView) rootView.findViewById(R.id.imRequestSickDay);
         mapHolder = (FrameLayout) rootView.findViewById(R.id.mapFrame);
         mapOverlay = (ImageView) rootView.findViewById(R.id.mapOverlay);
 
         tvCallSickDay.setOnClickListener(this);
-        tvRequestSickday.setOnClickListener(this);
+        imRequestSickday.setOnClickListener(this);
         tvCall911.setOnClickListener(this);
+        //address.setOnClickListener(this);
 
         return rootView;
     }
@@ -124,18 +160,20 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
                     if (addresses.size() > 0) {
                         Address address = addresses.get(0);
 
-                        sb.append(address.getAddressLine(0));
-                        //sb.append(address.getLocality()).append("\n");
-                        //sb.append(address.getCountryName());
+                        sb.append(address.getAddressLine(0)).append(" ");
+                        sb.append(address.getLocality()).append(", ");
+                        sb.append(address.getAdminArea()).append(" ");
+                        sb.append(address.getPostalCode());
                     }
 
                     addressString = sb.toString();
-                    address.setText(addressString);
+                    //address.setText(addressString);
+                    autoCompleteTextView.setText(addressString);
 
-                    Log.e("Address from lat,long ;", addressString);
+                    Log.i("Address;", addressString);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    address.setText(getString(R.string.check_connection));
+                    autoCompleteTextView.setText(getString(R.string.check_connection));
                 }
             }
         });
@@ -150,7 +188,7 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
     }
 
     public void setCurrentLocation(GoogleMap googleMap){
-        String addressString;
+
         try{
             LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
             Criteria criteria = new Criteria();
@@ -168,25 +206,26 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
                     if (addresses.size() > 0) {
                         Address address = addresses.get(0);
 
-                        sb.append(address.getAddressLine(0));
-                        //sb.append(address.getLocality()).append("\n");
+                        sb.append(address.getAddressLine(0)).append(" ");
+                        sb.append(address.getLocality()).append(", ");
+                        sb.append(address.getAdminArea()).append(" ");
+                        sb.append(address.getPostalCode());
                         //sb.append(address.getCountryName());
                     }
 
                     addressString = sb.toString();
-                    address.setText(addressString);
+                    autoCompleteTextView.setText(addressString);
 
-                    Log.e("Address from lat,long ;", addressString);
+                    Log.i("Address;", addressString);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    address.setText(getString(R.string.check_connection));
+                    autoCompleteTextView.setText(getString(R.string.check_connection));
                 }
 
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 13));
-                /*googleMap.addMarker(new MarkerOptions()
-                        .position(currentPosition)
-                        .snippet("Your current location")
-                        .title("Me"));*/
+                //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 13));
+
+                CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(currentPosition, 14);
+                googleMap.animateCamera(yourLocation);
             }
         }catch (NullPointerException e){
             e.printStackTrace();
@@ -212,11 +251,25 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
             Intent intent = new Intent(Intent.ACTION_CALL);
             intent.setData(Uri.parse("tel:2127425329"));
             startActivity(intent);
-        }else if(id == tvRequestSickday.getId()){
+        }else if(id == imRequestSickday.getId()){
             requestSickday();
         }else if(id == tvCall911.getId()){
             call911Popup();
+        }/*else if(id == address.getId()){
+            Intent intent = new Intent(getActivity(), Address_Activity.class);
+            intent.putExtra("address", address.getText().toString());
+            startActivityForResult(intent, 10);
+        }*/
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Bundle extras = data.getExtras();
+        if(extras != null){
+            int position = extras.getInt("position");
         }
+
     }
 
     private void call911Popup() {
@@ -251,23 +304,230 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
 
     private void requestSickday() {
 
-        Sickday_Request sickday_request = new Sickday_Request();
-        sickday_request.setUserName(ParseUser.getCurrentUser().getUsername());
-        sickday_request.setPendingRequest(true);
-        sickday_request.setUser(ParseUser.getCurrentUser());
-        sickday_request.setInsurance(ParseUser.getCurrentUser());
+        final Dialog dialog;
+        dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.requestsickday_popup);
+        dialog.setCancelable(false);
 
-        sickday_request.saveInBackground(new SaveCallback() {
+        final Button confirm = (Button) dialog.findViewById(R.id.bConfirm);
+        Button cancel = (Button) dialog.findViewById(R.id.bCanel);
+
+        confirm.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void done(ParseException e) {
-                if(e == null){
-                    Log.i("Pending Request", "Success");
-                }else{
-                    Log.i("Pending Request", "Fail");
-                    e.printStackTrace();
-                }
+            public void onClick(View v) {
+                Sickday_Request sickday_request = new Sickday_Request();
+                sickday_request.setUserName(ParseUser.getCurrentUser().getUsername());
+                sickday_request.setPendingRequest(true);
+                sickday_request.setUser(ParseUser.getCurrentUser());
+                sickday_request.setInsurance(ParseUser.getCurrentUser());
+                sickday_request.setAddress(autoCompleteTextView.getText().toString());
+
+                sickday_request.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e == null){
+                            Log.i("Pending Request", "Success");
+                        }else{
+                            Log.i("Pending Request", "Fail");
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                dialog.dismiss();
+
+                final Dialog confirmDialog;
+                confirmDialog = new Dialog(getActivity());
+                confirmDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                confirmDialog.setContentView(R.layout.sickday_confirmed_popup);
+                confirmDialog.setCancelable(true);
+                confirmDialog.show();
             }
         });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String str = (String) parent.getItemAtPosition(position);
+        Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
+
+        new GetLongandLatFromAddress().execute(str);
+    }
+
+    private class PlacesAutoCompleteAdapter extends ArrayAdapter<String> implements Filterable {
+        private ArrayList<String> resultList;
+
+        public PlacesAutoCompleteAdapter(Context context, int textViewResourceId) {
+            super(context, textViewResourceId);
+        }
+
+        @Override
+        public int getCount() {
+            return resultList.size();
+        }
+
+        @Override
+        public String getItem(int index) {
+            return resultList.get(index);
+        }
+
+        @Override
+        public Filter getFilter() {
+            Filter filter = new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    FilterResults filterResults = new FilterResults();
+                    if (constraint != null) {
+                        // Retrieve the autocomplete results.
+                        resultList = autocomplete(constraint.toString());
+
+                        // Assign the data to the FilterResults
+                        filterResults.values = resultList;
+                        filterResults.count = resultList.size();
+                    }
+                    return filterResults;
+                }
+
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+                    if (results != null && results.count > 0) {
+                        notifyDataSetChanged();
+                    }
+                    else {
+                        notifyDataSetInvalidated();
+                    }
+                }};
+            return filter;
+        }
+    }
+    private static final String LOG_TAG = "Address_Activity";
+    private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
+    private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
+    private static final String OUT_JSON = "/json";
+
+    private static final String API_KEY = "AIzaSyDzYHsim3OCEREeuaggrRJnju6ELesbYYs";
+
+    private ArrayList<String> autocomplete(String input) {
+        ArrayList<String> resultList = null;
+
+        HttpURLConnection conn = null;
+        StringBuilder jsonResults = new StringBuilder();
+        try {
+            StringBuilder sb = new StringBuilder(PLACES_API_BASE + TYPE_AUTOCOMPLETE + OUT_JSON);
+            sb.append("?key=" + API_KEY);
+            sb.append("&components=country:us");
+            sb.append("&input=" + URLEncoder.encode(input, "utf8"));
+            Log.i("URL USED", sb.toString());
+            URL url = new URL(sb.toString());
+            conn = (HttpURLConnection) url.openConnection();
+            InputStreamReader in = new InputStreamReader(conn.getInputStream());
+
+            // Load the results into a StringBuilder
+            int read;
+            char[] buff = new char[1024];
+            while ((read = in.read(buff)) != -1) {
+                jsonResults.append(buff, 0, read);
+            }
+        } catch (MalformedURLException e) {
+            Log.e(LOG_TAG, "Error processing Places API URL", e);
+            return resultList;
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Error connecting to Places API", e);
+            return resultList;
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
+
+        try {
+            // Create a JSON object hierarchy from the results
+            JSONObject jsonObj = new JSONObject(jsonResults.toString());
+            JSONArray predsJsonArray = jsonObj.getJSONArray("predictions");
+
+            // Extract the Place descriptions from the results
+            resultList = new ArrayList<String>(predsJsonArray.length());
+            for (int i = 0; i < predsJsonArray.length(); i++) {
+                Log.i("Result", predsJsonArray.getJSONObject(i).getString("description"));
+                resultList.add(predsJsonArray.getJSONObject(i).getString("description"));
+            }
+        } catch (JSONException e) {
+            Log.e(LOG_TAG, "Cannot process JSON results", e);
+        }
+
+        return resultList;
+    }
+
+    public class GetLongandLatFromAddress extends AsyncTask<String, Void, Void>{
+
+        @Override
+        protected Void doInBackground(String... params) {
+            String youraddress = params[0];
+            youraddress = youraddress.replace(" ", "+");
+            String uri = "http://maps.google.com/maps/api/geocode/json?address=" +
+                    youraddress + "&sensor=false";
+            HttpGet httpGet = new HttpGet(uri);
+            HttpClient client = new DefaultHttpClient();
+            HttpResponse response;
+            StringBuilder stringBuilder = new StringBuilder();
+
+            try {
+                response = client.execute(httpGet);
+                HttpEntity entity = response.getEntity();
+                InputStream stream = entity.getContent();
+                int b;
+                while ((b = stream.read()) != -1) {
+                    stringBuilder.append((char) b);
+                }
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject = new JSONObject(stringBuilder.toString());
+
+                lng = ((JSONArray)jsonObject.get("results")).getJSONObject(0)
+                        .getJSONObject("geometry").getJSONObject("location")
+                        .getDouble("lng");
+
+                lat = ((JSONArray)jsonObject.get("results")).getJSONObject(0)
+                        .getJSONObject("geometry").getJSONObject("location")
+                        .getDouble("lat");
+
+
+
+                Log.d("latitude", "" + lat);
+                Log.d("longitude", "" + lng);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(new LatLng(lat,lng), 13);
+            mapFragment.getMap().animateCamera(yourLocation);
+
+        }
+    }
+
 }
 

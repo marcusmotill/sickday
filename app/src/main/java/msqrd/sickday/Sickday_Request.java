@@ -34,4 +34,8 @@ public class Sickday_Request extends ParseObject{
     public void setInsurance(ParseUser user){
         put("insurance", user.get("insurance"));
     }
+
+    public void setAddress(String address){
+        put("Address", address);
+    }
 }

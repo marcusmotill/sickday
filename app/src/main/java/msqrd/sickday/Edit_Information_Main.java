@@ -161,6 +161,7 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
 
         static EditText etFirstName;
         static EditText etLastName;
+        static EditText etPhone;
         static ParseUser user;
         static ProgressDialog dialog;
 
@@ -170,6 +171,7 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
 
             etFirstName = (EditText) rootView.findViewById(R.id.etInsuranceInformationFirstName);
             etLastName = (EditText) rootView.findViewById(R.id.etInsuranceInformationLastName);
+            etPhone = (EditText) rootView.findViewById(R.id.etInsuranceInformationPhone);
 
             toggleEditTexts();
             init();
@@ -187,6 +189,7 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
             if (user != null) {
                 etFirstName.setText(user.get("firstname").toString());
                 etLastName.setText(user.get("lastname").toString());
+                etPhone.setText(user.get("phoneNumber").toString());
             }
         }
 
@@ -194,15 +197,18 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
             if (etFirstName.isEnabled()) {
                 etFirstName.setEnabled(false);
                 etLastName.setEnabled(false);
+                etPhone.setEnabled(false);
             } else {
                 etFirstName.setEnabled(true);
                 etLastName.setEnabled(true);
+                etPhone.setEnabled(true);
             }
         }
 
         public static void updateProfile() {
             user.put("firstname", etFirstName.getText().toString());
             user.put("lastname", etLastName.getText().toString());
+            user.put("phoneNumber", etPhone.getText().toString());
             user.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {

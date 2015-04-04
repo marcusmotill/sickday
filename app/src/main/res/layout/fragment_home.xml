@@ -14,7 +14,8 @@
             android:id="@+id/map"
             class="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="300dp" />
+            android:layout_height="300dp"
+            />
 
         <ImageView
             android:id="@+id/mapOverlay"
@@ -25,14 +26,28 @@
     </FrameLayout>
 
     <RelativeLayout
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/tvRequestSickDay"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/mapFrame">
+        android:layout_below="@+id/mapFrame"
+        android:id="@+id/relativeLayout"
+        android:layout_above="@+id/tvCallSickDay">
 
-        <msqrd.sickday.AutoResizeTextView
+        <AutoCompleteTextView
+            android:id="@+id/automcompleteView"
+            android:textSize="30sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="Address"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <!--<msqrd.sickday.AutoResizeTextView
             android:layout_centerVertical="true"
             android:id="@+id/tvAddress"
             android:layout_width="wrap_content"
@@ -42,53 +57,54 @@
             android:maxLines="1"
             android:text="Address"
             android:textAppearance="@android:style/TextAppearance.Large"
-            android:textSize="30sp" />
+            android:textSize="30sp" />-->
+        <ImageView
+            android:src="@drawable/logo_requestsickday"
+            android:id="@+id/imRequestSickDay"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:gravity="center"
+            android:layout_below="@+id/automcompleteView"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
     <msqrd.sickday.AutoResizeTextView
-        android:id="@+id/tvRequestSickDay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/tvCall911"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/sickday_blue"
-        android:gravity="center"
-        android:maxLines="1"
-        android:padding="10dp"
-        android:text="@string/request_sickday"
-        android:textColor="@android:color/white"
-        android:textSize="40sp" />
-
-    <msqrd.sickday.AutoResizeTextView
+        android:visibility="gone"
         android:id="@+id/tvCallSickDay"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:background="@color/sickday_blue"
         android:gravity="center"
         android:maxLines="1"
         android:padding="10dp"
         android:text="@string/call_sickday"
         android:textColor="@android:color/white"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:layout_above="@+id/tvCall911"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <msqrd.sickday.AutoResizeTextView
         android:id="@+id/tvCall911"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/tvCallSickDay"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+
         android:background="@color/sickday_red"
         android:gravity="center"
         android:maxLines="1"
         android:padding="10dp"
         android:text="@string/call_911"
         android:textColor="@android:color/white"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
 
 
 </RelativeLayout>
