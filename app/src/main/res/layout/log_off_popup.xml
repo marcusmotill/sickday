@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/are_you_sure"
+        android:text="@string/confirm_logoff"
         android:textAppearance="@android:style/TextAppearance.Large" />
 
     <LinearLayout
@@ -19,13 +19,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvAreYouSure"
         android:orientation="vertical"
-       >
+        >
         <Button
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="@android:color/white"
             android:background="@color/sickday_blue"
-            android:text="@string/yes_request"
-            android:id="@+id/bConfirm"
+            android:text="@string/yes_logoff"
+            android:id="@+id/bConfirmLogOff"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -34,7 +34,7 @@
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="@android:color/white"
             android:background="@color/sickday_blue"
-            android:id="@+id/bCanel"
+            android:id="@+id/bCanelLogOff"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/cancel" />

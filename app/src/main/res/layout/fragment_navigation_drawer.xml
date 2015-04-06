@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/navigation_drawer_width"
     android:layout_height="match_parent"
@@ -6,47 +6,62 @@
     tools:context=".NavigationDrawerFragment">
 
     <RelativeLayout
+        android:id="@+id/profileHolder"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@android:color/white">
 
         <ImageView
-            android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/logohq"
-            android:layout_above="@+id/profileName"/>
+            android:layout_above="@+id/profileName"
+            android:layout_margin="10dp"
+            android:src="@drawable/logohq" />
 
         <msqrd.sickday.AutoResizeTextView
             android:id="@+id/profileName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/view"
+            android:layout_centerVertical="true"
             android:maxLines="1"
-            android:textSize="50sp"
             android:text="Johnny Appleseed"
             android:textColor="@android:color/black"
-            android:layout_above="@+id/view"
-            android:layout_centerVertical="true"/>
+            android:textSize="50sp" />
 
 
         <View
+            android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/sickday_blue"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/view" />
+            android:background="@color/sickday_blue" />
     </RelativeLayout>
 
 
     <ListView
         android:id="@+id/navDrawerListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/logOffButton"
+        android:layout_below="@+id/profileHolder"
         android:background="#F4F3F1"
         android:choiceMode="singleChoice"
         android:divider="@color/sickday_blue"
         android:dividerHeight="2dp" />
 
-</LinearLayout>
+    <msqrd.sickday.AutoResizeTextView
+        android:id="@+id/logOffButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/sickday_blue"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/log_out"
+        android:textColor="@android:color/white"
+        android:textSize="30sp" />
+
+</RelativeLayout>

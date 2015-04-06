@@ -77,7 +77,7 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
 
 
     static SupportMapFragment mapFragment;
-    TextView tvCallSickDay, tvCall911;
+    AutoResizeTextView tvCallSickDay, tvCall911;
     AutoCompleteTextView autoCompleteTextView;
     ImageView mapOverlay, imRequestSickday;
     FrameLayout mapHolder;
@@ -94,8 +94,8 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
         autoCompleteTextView.setAdapter(autocompleteadapter);
         autoCompleteTextView.setOnItemClickListener(this);
 
-        tvCallSickDay = (TextView) rootView.findViewById(R.id.tvCallSickDay);
-        tvCall911 = (TextView) rootView.findViewById(R.id.tvCall911);
+        tvCallSickDay = (AutoResizeTextView) rootView.findViewById(R.id.tvCallSickDay);
+        tvCall911 = (AutoResizeTextView) rootView.findViewById(R.id.tvCall911);
         imRequestSickday = (ImageView) rootView.findViewById(R.id.imRequestSickDay);
         mapHolder = (FrameLayout) rootView.findViewById(R.id.mapFrame);
         mapOverlay = (ImageView) rootView.findViewById(R.id.mapOverlay);
@@ -161,14 +161,14 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
                         Address address = addresses.get(0);
 
                         sb.append(address.getAddressLine(0)).append(" ");
+                        autoCompleteTextView.setText(sb.toString());
                         sb.append(address.getLocality()).append(", ");
                         sb.append(address.getAdminArea()).append(" ");
                         sb.append(address.getPostalCode());
                     }
 
                     addressString = sb.toString();
-                    //address.setText(addressString);
-                    autoCompleteTextView.setText(addressString);
+
 
                     Log.i("Address;", addressString);
                 } catch (IOException e) {
@@ -207,14 +207,14 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
                         Address address = addresses.get(0);
 
                         sb.append(address.getAddressLine(0)).append(" ");
+                        autoCompleteTextView.setText(sb.toString());
                         sb.append(address.getLocality()).append(", ");
                         sb.append(address.getAdminArea()).append(" ");
                         sb.append(address.getPostalCode());
-                        //sb.append(address.getCountryName());
                     }
 
                     addressString = sb.toString();
-                    autoCompleteTextView.setText(addressString);
+
 
                     Log.i("Address;", addressString);
                 } catch (IOException e) {
@@ -321,7 +321,7 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
                 sickday_request.setPendingRequest(true);
                 sickday_request.setUser(ParseUser.getCurrentUser());
                 sickday_request.setInsurance(ParseUser.getCurrentUser());
-                sickday_request.setAddress(autoCompleteTextView.getText().toString());
+                sickday_request.setAddress(addressString);
 
                 sickday_request.saveInBackground(new SaveCallback() {
                     @Override

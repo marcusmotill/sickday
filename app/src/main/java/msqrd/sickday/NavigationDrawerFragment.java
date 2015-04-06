@@ -1,6 +1,9 @@
 package msqrd.sickday;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -20,8 +23,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -36,7 +41,7 @@ import com.parse.ParseUser;
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends Fragment implements View.OnClickListener {
 
     /**
      * Remember the position of the selected item.
@@ -68,6 +73,7 @@ public class NavigationDrawerFragment extends Fragment {
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
+    AutoResizeTextView tvlogOff;
 
     public NavigationDrawerFragment() {
     }
@@ -107,7 +113,8 @@ public class NavigationDrawerFragment extends Fragment {
         tvProfileName = (TextView) mainDrawer.findViewById(R.id.profileName);
         updateProfileName();
 
-
+        tvlogOff = (AutoResizeTextView) mainDrawer.findViewById(R.id.logOffButton);
+        tvlogOff.setOnClickListener(this);
 
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -157,7 +164,7 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerToggle = new ActionBarDrawerToggle(
                 getActivity(),                    /* host Activity */
                 mDrawerLayout,                    /* DrawerLayout object */
-                R.drawable.nav_drawer_icon,             /* nav drawer image to replace 'Up' caret */
+                R.drawable.ic_drawer,             /* nav drawer image to replace 'Up' caret */
                 R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
                 R.string.navigation_drawer_close  /* "close drawer" description for accessibility */
         ) {
@@ -288,6 +295,43 @@ public class NavigationDrawerFragment extends Fragment {
 
     private ActionBar getActionBar() {
         return ((ActionBarActivity) getActivity()).getSupportActionBar();
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if(id == tvlogOff.getId()){
+
+            final Dialog dialogLogOff;
+            dialogLogOff = new Dialog(getActivity());
+            dialogLogOff.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialogLogOff.setContentView(R.layout.log_off_popup);
+            dialogLogOff.setCancelable(false);
+
+            Button confirm = (Button) dialogLogOff.findViewById(R.id.bConfirmLogOff);
+            Button cancel = (Button) dialogLogOff.findViewById(R.id.bCanelLogOff);
+
+            confirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ParseUser.logOut();
+                    Intent loginActivityIntent = new Intent(getActivity(), Login_Activity.class);
+                    startActivity(loginActivityIntent);
+                }
+            });
+
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogLogOff.dismiss();
+                }
+            });
+
+
+            dialogLogOff.show();
+
+
+        }
     }
 
     /**

@@ -58,6 +58,7 @@
             android:text="Address"
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textSize="30sp" />-->
+
         <ImageView
             android:src="@drawable/logo_requestsickday"
             android:id="@+id/imRequestSickDay"
