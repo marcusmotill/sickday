@@ -12,7 +12,6 @@
             android:layout_margin="10dp"
             android:layout_centerVertical="true"
             android:scaleType="fitCenter"
-
             android:id="@+id/rowItemIcon"
             android:layout_width="60dp"
             android:layout_height="60dp"

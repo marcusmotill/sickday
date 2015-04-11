@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_margin="10dp"
         android:id="@+id/tvAreYouSure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:gravity="center"
         android:text="@string/are_you_sure"
         android:textAppearance="@android:style/TextAppearance.Large" />
@@ -18,26 +18,44 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvAreYouSure"
-        android:orientation="vertical"
-       >
+        android:orientation="vertical">
+
         <Button
-            android:textAppearance="@android:style/TextAppearance.Large"
-            android:textColor="@android:color/white"
-            android:background="@color/sickday_blue"
-            android:text="@string/yes_request"
             android:id="@+id/bConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:background="@color/sickday_blue"
+            android:text="@string/yes_request"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@android:color/white" />
         <Button
             android:layout_marginTop="2dp"
-            android:textAppearance="@android:style/TextAppearance.Large"
-            android:textColor="@android:color/white"
+            android:id="@+id/bConfirmHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/sickday_blue"
+            android:text="Yes, use home address"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@android:color/white" />
+        <Button
+            android:layout_marginTop="2dp"
+            android:id="@+id/bConfirmWork"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/sickday_blue"
+            android:text="Yes, use work address"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@android:color/white" />
+
+        <Button
             android:id="@+id/bCanel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/cancel" />
+            android:layout_marginTop="2dp"
+            android:background="@color/sickday_blue"
+            android:text="@string/cancel"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@android:color/white" />
 
 
     </LinearLayout>

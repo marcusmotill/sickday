@@ -86,6 +86,36 @@
                 android:textColorHint="@android:color/white"
                 android:layout_below="@+id/tvPhoneLabel" />
 
+            <msqrd.sickday.AutoResizeTextView
+                android:id="@+id/bHomeAddressEdit"
+                android:layout_below="@+id/etInsuranceInformationPhone"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/sickday_blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit Home Address"/>
+
+            <msqrd.sickday.AutoResizeTextView
+                android:id="@+id/bWorkAddressEdit"
+                android:layout_below="@+id/bHomeAddressEdit"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/sickday_blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit Work Address"/>
+
         </RelativeLayout>
     </ScrollView>
 

@@ -11,10 +11,11 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/logohq"
-        android:layout_below="@+id/splashlogowords"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <ImageView
+        android:layout_marginTop="20dp"
         android:id="@+id/splashlogowords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,12 +30,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="#bdc3c7"
+        android:background="#99A32626"
         android:gravity="center"
-        android:maxLines="3"
         android:text="@string/home_fragment_warning"
-        android:textColor="@color/sickday_red"
-        android:textSize="40dp" />
+        android:textColor="@android:color/white"
+        android:textSize="20dp" />
 
     <RelativeLayout
         android:id="@+id/contentLayout"

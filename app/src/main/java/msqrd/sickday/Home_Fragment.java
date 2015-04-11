@@ -152,7 +152,6 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
             @Override
             public void onCameraChange(CameraPosition cameraPosition) {
                 LatLng camerapositionLatLng = googleMap.getCameraPosition().target;
-                String addressString;
                 try {
                     Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
                     List<Address> addresses = geocoder.getFromLocation(camerapositionLatLng.latitude, camerapositionLatLng.longitude, 1);
@@ -312,7 +311,79 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
 
         final Button confirm = (Button) dialog.findViewById(R.id.bConfirm);
         Button cancel = (Button) dialog.findViewById(R.id.bCanel);
+        Button homeAddress = (Button) dialog.findViewById(R.id.bConfirmHome);
+        Button workAddress = (Button) dialog.findViewById(R.id.bConfirmWork);
+        final ParseUser user = ParseUser.getCurrentUser();
+        if(user.get("home_street") == null){
+            homeAddress.setVisibility(View.GONE);
+        }
+        if(user.get("work_street") == null){
+            workAddress.setVisibility(View.GONE);
+        }
 
+        homeAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Sickday_Request sickday_request = new Sickday_Request();
+                sickday_request.setUserName(ParseUser.getCurrentUser().getUsername());
+                sickday_request.setPendingRequest(true);
+                sickday_request.setUser(ParseUser.getCurrentUser());
+                sickday_request.setInsurance(ParseUser.getCurrentUser());
+                sickday_request.setAddress(user.get("home_street").toString()+ " " + user.get("home_city").toString() + " " + user.get("home_state").toString() + " " + user.get("home_zip").toString());
+
+                sickday_request.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e == null){
+                            Log.i("Pending Request", "Success");
+                        }else{
+                            Log.i("Pending Request", "Fail");
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                dialog.dismiss();
+
+                final Dialog confirmDialog;
+                confirmDialog = new Dialog(getActivity());
+                confirmDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                confirmDialog.setContentView(R.layout.sickday_confirmed_popup);
+                confirmDialog.setCancelable(true);
+                confirmDialog.show();
+            }
+        });
+
+        workAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Sickday_Request sickday_request = new Sickday_Request();
+                sickday_request.setUserName(ParseUser.getCurrentUser().getUsername());
+                sickday_request.setPendingRequest(true);
+                sickday_request.setUser(ParseUser.getCurrentUser());
+                sickday_request.setInsurance(ParseUser.getCurrentUser());
+                sickday_request.setAddress(user.get("work_street").toString()+ " " + user.get("work_city").toString() + " " + user.get("work_state").toString() + " " + user.get("work_zip").toString());
+
+                sickday_request.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e == null){
+                            Log.i("Pending Request", "Success");
+                        }else{
+                            Log.i("Pending Request", "Fail");
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                dialog.dismiss();
+
+                final Dialog confirmDialog;
+                confirmDialog = new Dialog(getActivity());
+                confirmDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                confirmDialog.setContentView(R.layout.sickday_confirmed_popup);
+                confirmDialog.setCancelable(true);
+                confirmDialog.show();
+            }
+        });
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

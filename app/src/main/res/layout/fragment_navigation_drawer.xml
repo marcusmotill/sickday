@@ -2,13 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/navigation_drawer_width"
     android:layout_height="match_parent"
+    android:clickable="true"
+    android:id="@+id/menuParent"
     android:orientation="vertical"
     tools:context=".NavigationDrawerFragment">
 
     <RelativeLayout
         android:id="@+id/profileHolder"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:background="@android:color/white">
 
         <ImageView
@@ -40,28 +42,59 @@
             android:background="@color/sickday_blue" />
     </RelativeLayout>
 
-
-    <ListView
-        android:id="@+id/navDrawerListView"
+    <ScrollView
+        android:id="@+id/menuScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/logOffButton"
-        android:layout_below="@+id/profileHolder"
-        android:background="#F4F3F1"
-        android:choiceMode="singleChoice"
-        android:divider="@color/sickday_blue"
-        android:dividerHeight="2dp" />
+        android:layout_below="@+id/profileHolder">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F4F3F1"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/navDrawerListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="#F4F3F1"
+                android:choiceMode="singleChoice"
+                android:divider="@color/sickday_blue"
+                android:dividerHeight="2dp" />
+
+            <!--<View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/sickday_blue" />-->
+
+
+            <ExpandableListView
+                android:id="@+id/expandable_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F4F3F1"
+                android:childDivider="@color/sickday_blue"
+                android:divider="@color/sickday_blue"
+                android:dividerHeight="2dp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
 
     <msqrd.sickday.AutoResizeTextView
         android:id="@+id/logOffButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:background="@color/sickday_blue"
         android:gravity="center"
         android:maxLines="1"
         android:text="@string/log_out"
         android:textColor="@android:color/white"
         android:textSize="30sp" />
-
 </RelativeLayout>

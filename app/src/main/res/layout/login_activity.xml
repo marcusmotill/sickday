@@ -1,144 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/welcome_message"
-        android:id="@+id/tvWelcome"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:textCursorDrawable="@null"
-        android:id="@+id/welcomeEmail"
-        android:inputType="textEmailAddress"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/sickday_blue"
-        android:hint="@string/profilebuilder_email"
-        android:padding="10dp"
-        android:layout_margin="10dp"
-        android:textAppearance="@android:style/TextAppearance.Large"
-        android:textColor="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:layout_centerVertical="true"
-        />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/registerButton"
+        android:layout_alignParentTop="true">
 
-    <EditText
-        android:textCursorDrawable="@null"
-        android:id="@+id/loginPopupPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/welcomeEmail"
-        android:layout_margin="10dp"
-        android:background="@color/sickday_blue"
-        android:hint="@string/profulebuilder_password"
-        android:inputType="textPassword"
-        android:padding="10dp"
-        android:textAppearance="@android:style/TextAppearance.Large"
-        android:textColor="@android:color/white"
-        android:textColorHint="@android:color/white" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvIncorrectLogin"
-        android:textColor="@color/sickday_red"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/incorrect_login"
-        android:textAppearance="@android:style/TextAppearance.Medium"
-        android:layout_below="@+id/loginPopupPassword"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+            <TextView
+                android:id="@+id/tvWelcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="@string/welcome_message"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+            <ImageView
+                android:id="@+id/imLogo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_below="@+id/tvWelcome"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/logohq" />
+
+            <RelativeLayout
+                android:id="@+id/contentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/imLogo">
+
+                <TextView
+                    android:id="@+id/tvSickInCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/sick_in_city"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/tvMedicalHouseCalls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvSickInCity"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/medical_house_calls"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <ImageView
+                    android:id="@+id/imHome"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/tvMedicalHouseCalls"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/home_address_icon" />
+
+                <ImageView
+                    android:id="@+id/imOffice"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/tvMedicalHouseCalls"
+                    android:layout_margin="10dp"
+                    android:layout_toRightOf="@+id/imHome"
+                    android:src="@drawable/office_icon" />
+
+                <TextView
+                    android:id="@+id/tvHomeOfficeHotel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imOffice"
+                    android:layout_toEndOf="@+id/imOffice"
+                    android:layout_toRightOf="@+id/imOffice"
+                    android:text="@string/home_office_hotel"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
+            <EditText
+                android:layout_below="@id/contentLayout"
+                android:id="@+id/welcomeEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/sickday_blue"
+                android:hint="@string/profilebuilder_email"
+                android:inputType="textEmailAddress"
+                android:padding="10dp"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textCursorDrawable="@null"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+            <EditText
+                android:layout_marginTop="10dp"
+                android:id="@+id/loginPopupPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/sickday_blue"
+                android:hint="@string/profulebuilder_password"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textCursorDrawable="@null"
+                android:layout_below="@+id/welcomeEmail"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/tvIncorrectLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/incorrect_login"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textColor="@color/sickday_red"
+                android:layout_below="@+id/loginPopupPassword"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/registerButton"
-        android:text="@string/sign_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@android:style/TextAppearance.Large"
-        android:textColor="@android:color/white"
-        android:background="@color/sickday_blue"
         android:layout_above="@+id/loginButton"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="@color/sickday_blue"
+        android:text="@string/sign_up"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@android:color/white" />
 
     <Button
-        android:layout_marginTop="10dp"
         android:id="@+id/loginButton"
-        android:text="@string/log_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@android:style/TextAppearance.Large"
-        android:textColor="@android:color/white"
-        android:background="@color/sickday_blue"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@color/sickday_blue"
+        android:text="@string/log_in"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@android:color/white" />
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/imLogo"
-        android:src="@drawable/logohq"
-        android:layout_below="@+id/tvWelcome"
-        android:layout_centerHorizontal="true" />
 
-    <RelativeLayout
-        android:id="@+id/contentLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imLogo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <TextView
-            android:id="@+id/tvSickInCity"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sick_in_city"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:id="@+id/tvMedicalHouseCalls"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/medical_house_calls"
-            android:layout_below="@id/tvSickInCity"
-            android:layout_centerHorizontal="true" />
-
-        <ImageView
-            android:layout_margin="10dp"
-            android:layout_below="@+id/tvMedicalHouseCalls"
-            android:id="@+id/imHome"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/home_address_icon"/>
-
-        <ImageView
-            android:layout_margin="10dp"
-            android:layout_below="@+id/tvMedicalHouseCalls"
-            android:id="@+id/imOffice"
-            android:layout_toRightOf="@+id/imHome"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/office_icon"/>
-
-        <TextView
-            android:id="@+id/tvHomeOfficeHotel"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/home_office_hotel"
-            android:layout_alignBottom="@+id/imOffice"
-            android:layout_toRightOf="@+id/imOffice"
-            android:layout_toEndOf="@+id/imOffice" />
-        </RelativeLayout>
 </RelativeLayout>

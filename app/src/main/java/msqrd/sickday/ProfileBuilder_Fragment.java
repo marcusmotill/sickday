@@ -1,5 +1,6 @@
 package msqrd.sickday;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,6 +31,8 @@ import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -59,8 +63,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                     return new ProfileBuilder_Fragment_1();
                 } else if (position == 1) {
                     return new ProfileBuilder_Fragment_2();
-                }
-                else {
+                } else {
                     return new ProfileBuilder_Fragment_1();
                 }
 
@@ -95,7 +98,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                 ProfileBuilder_Fragment_1.addUser();
             } else if (mViewPager.getCurrentItem() == 1) {
                 ProfileBuilder_Fragment_2.addInsuranceInformation();
-                if(context.getClass().getSimpleName().equals(MainActivity.class.getSimpleName())){
+                /*if(context.getClass().getSimpleName().equals(MainActivity.class.getSimpleName())){
 
 
 
@@ -103,17 +106,17 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                     Intent startActivity = new Intent(context, MainActivity.class);
                     startActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(startActivity);
-                }
+                }*/
 
             }
 
-            if (mViewPager.getCurrentItem() != (NUMBER_OF_PAGES - 1))
+            /*if (mViewPager.getCurrentItem() != (NUMBER_OF_PAGES - 1))
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
 
             if (mViewPager.getCurrentItem() == 1) {
                 tvNext.setText(getString(R.string.done));
 
-            }
+            }*/
         }
     }
 
@@ -140,6 +143,11 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
         static EditText tvEmail;
         static EditText tvPassword;
         static EditText tvPhoneNumber;
+        static TextView bAddressHome;
+        static TextView bAddressWork;
+
+        String streetString, cityString, stateString, zipString;
+        static ParseUser user;
 
 
         @Override
@@ -151,6 +159,13 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
             tvEmail = (EditText) rootView.findViewById(R.id.formEmail);
             tvPassword = (EditText) rootView.findViewById(R.id.formPassword);
             tvPhoneNumber = (EditText) rootView.findViewById(R.id.formPhoneNumber);
+            bAddressHome = (TextView) rootView.findViewById(R.id.bHomeAddress);
+            bAddressWork = (TextView) rootView.findViewById(R.id.bWorkAddress);
+
+            bAddressHome.setOnClickListener(this);
+            bAddressWork.setOnClickListener(this);
+
+            user = new ParseUser();
 
 
             return rootView;
@@ -159,17 +174,85 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
         @Override
         public void onClick(View v) {
             int id = v.getId();
+            if (id == bAddressHome.getId()) {
+                addAddress("home");
+            } else if (id == bAddressWork.getId()) {
+                addAddress("work");
+            }
 
 
         }
 
+        private void addAddress(final String address) {
+            final Dialog dialog;
+            dialog = new Dialog(getActivity());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.add_address_popup);
+            dialog.setCancelable(false);
+
+            final TextView confirm = (TextView) dialog.findViewById(R.id.addressConfirm);
+            TextView cancel = (TextView) dialog.findViewById(R.id.addressCancel);
+            final EditText street = (EditText) dialog.findViewById(R.id.addressStreet);
+            final EditText city = (EditText) dialog.findViewById(R.id.addressCity);
+            final EditText state = (EditText) dialog.findViewById(R.id.addressState);
+            final EditText zip = (EditText) dialog.findViewById(R.id.addressZip);
+
+            if(streetString != null | cityString != null | stateString != null | zipString != null){
+                try{
+                    street.setText(streetString);
+                    city.setText(cityString);
+                    state.setText(stateString);
+                    zip.setText(zipString);
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
+
+            }
+
+            confirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(isEmpty(street) | isEmpty(city) | isEmpty(state) | isEmpty(zip)){
+                        Toast.makeText(context, context.getString(R.string.profilebuilder_null_field), Toast.LENGTH_LONG).show();
+                    }else{
+                        streetString = street.getText().toString();
+                        cityString = city.getText().toString();
+                        stateString = state.getText().toString();
+                        zipString = zip.getText().toString();
+
+                        user.put(address + "_street", streetString);
+                        user.put(address + "_city", cityString);
+                        user.put(address + "_state", stateString);
+                        user.put(address + "_zip", zipString);
+
+                        dialog.dismiss();
+
+                    }
+
+                }
+            });
+
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    streetString = street.getText().toString();
+                    cityString = city.getText().toString();
+                    stateString = state.getText().toString();
+                    zipString = zip.getText().toString();
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
+        }
+
         public static void addUser() {
-            if (tvPassword.getText().toString().length() < 6) {
-                Toast.makeText(context, context.getString(R.string.password_length_error), Toast.LENGTH_LONG).show();
-            } else if (tvFirstName.getText().toString() == null | tvLastName.getText().toString() == null | tvEmail.getText().toString() == null | tvPassword.getText().toString() == null) {
+            if (isEmpty(tvFirstName) | isEmpty(tvLastName) | isEmpty(tvEmail) | isEmpty(tvPassword) | isEmpty(tvPhoneNumber)) {
                 Toast.makeText(context, context.getString(R.string.profilebuilder_null_field), Toast.LENGTH_LONG).show();
+            } else if (tvPassword.getText().toString().length() < 6) {
+                Toast.makeText(context, context.getString(R.string.password_length_error), Toast.LENGTH_LONG).show();
             } else {
-                ParseUser user = new ParseUser();
+
                 user.setUsername(tvEmail.getText().toString());
                 user.setPassword(tvPassword.getText().toString());
                 user.setEmail(tvEmail.getText().toString());
@@ -190,6 +273,9 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                                     if (user != null) {
                                         Log.i("User Login", "Success");
                                         dialog.dismiss();
+                                        Intent startactivity = new Intent(context, MainActivity.class);
+                                        startactivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        context.startActivity(startactivity);
                                     } else {
                                         Log.i("User Login", "Fail");
                                     }
@@ -206,6 +292,10 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
             }
 
         }
+
+        static boolean isEmpty(EditText etText) {
+            return etText.getText().toString().trim().length() == 0;
+        }
     }
 
     public static class ProfileBuilder_Fragment_2 extends Fragment implements View.OnClickListener {
@@ -219,7 +309,6 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
 
             return rootView;
         }
-
 
 
         @Override
@@ -238,10 +327,10 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                 insurance_information.setUser(ParseUser.getCurrentUser());
                 insurance_information.saveInBackground(new SaveCallback() {
                     public void done(ParseException e) {
-                        if (e != null){
+                        if (e != null) {
                             e.printStackTrace();
 
-                        }else{
+                        } else {
                             Log.i("Activity Name", context.getClass().getSimpleName());
                             ParseQuery query = new ParseQuery("Insurance");
 
@@ -253,15 +342,15 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                                     if (e == null) {
                                         for (Object dealsObject : list) {
                                             // use dealsObject.get('columnName') to access the properties of the Deals object.
-                                            ParseObject parseObject = (ParseObject)dealsObject;
+                                            ParseObject parseObject = (ParseObject) dealsObject;
                                             ParseUser user = ParseUser.getCurrentUser();
                                             user.put("insurance", parseObject);
                                             user.saveInBackground(new SaveCallback() {
                                                 @Override
                                                 public void done(ParseException e) {
-                                                    if(e == null){
+                                                    if (e == null) {
                                                         Log.i("Insurance Added", "Success");
-                                                    }else{
+                                                    } else {
                                                         Log.i("Insurance Added", "Fail");
                                                         e.printStackTrace();
                                                     }

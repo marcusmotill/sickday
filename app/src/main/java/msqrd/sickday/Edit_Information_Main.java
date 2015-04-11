@@ -18,6 +18,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.LogInCallback;
@@ -26,6 +27,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -36,7 +39,8 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
 
     CustomViewPager mViewPager;
     int NUMBER_OF_PAGES = 2;
-    Button bEditProfile, bEditInsurance;
+    static Button bEditProfile;
+    Button bEditInsurance;
     static Context context;
     Dialog loginDialog;
 
@@ -164,6 +168,8 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
         static EditText etPhone;
         static ParseUser user;
         static ProgressDialog dialog;
+        static TextView bAddressHome;
+        static TextView bAddressWork;
 
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -172,6 +178,11 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
             etFirstName = (EditText) rootView.findViewById(R.id.etInsuranceInformationFirstName);
             etLastName = (EditText) rootView.findViewById(R.id.etInsuranceInformationLastName);
             etPhone = (EditText) rootView.findViewById(R.id.etInsuranceInformationPhone);
+            bAddressHome = (TextView) rootView.findViewById(R.id.bHomeAddressEdit);
+            bAddressWork = (TextView) rootView.findViewById(R.id.bWorkAddressEdit);
+
+            bAddressHome.setOnClickListener(this);
+            bAddressWork.setOnClickListener(this);
 
             toggleEditTexts();
             init();
@@ -181,7 +192,71 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
 
         @Override
         public void onClick(View v) {
+            int id = v.getId();
 
+            if (id == bAddressHome.getId()) {
+                addAddress("home");
+            } else if (id == bAddressWork.getId()) {
+                addAddress("work");
+            }
+
+        }
+
+        private void addAddress(final String address) {
+            final Dialog dialog;
+            dialog = new Dialog(getActivity());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.add_address_popup);
+            dialog.setCancelable(false);
+
+            final TextView confirm = (TextView) dialog.findViewById(R.id.addressConfirm);
+            TextView cancel = (TextView) dialog.findViewById(R.id.addressCancel);
+            final EditText street = (EditText) dialog.findViewById(R.id.addressStreet);
+            final EditText city = (EditText) dialog.findViewById(R.id.addressCity);
+            final EditText state = (EditText) dialog.findViewById(R.id.addressState);
+            final EditText zip = (EditText) dialog.findViewById(R.id.addressZip);
+
+            if(user.get(address + "_street") != null){
+                street.setText(user.get(address + "_street").toString());
+                city.setText(user.get(address + "_city").toString());
+                state.setText(user.get(address + "_state").toString());
+                zip.setText(user.get(address + "_zip").toString());
+            }
+
+
+            confirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(isEmpty(street) | isEmpty(city) | isEmpty(state) | isEmpty(zip)){
+                        Toast.makeText(context, context.getString(R.string.profilebuilder_null_field), Toast.LENGTH_LONG).show();
+                    }else {
+                        bEditProfile.setText(getString(R.string.save));
+                        String streetString, cityString, stateString, zipString;
+                        streetString = street.getText().toString();
+                        cityString = city.getText().toString();
+                        stateString = state.getText().toString();
+                        zipString = zip.getText().toString();
+
+                        user.put(address + "_street", streetString);
+                        user.put(address + "_city", cityString);
+                        user.put(address + "_state", stateString);
+                        user.put(address + "_zip", zipString);
+
+                        dialog.dismiss();
+                    }
+
+
+                }
+            });
+
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
         }
 
         private void init() {
@@ -191,6 +266,10 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
                 etLastName.setText(user.get("lastname").toString());
                 etPhone.setText(user.get("phoneNumber").toString());
             }
+        }
+
+        static boolean isEmpty(EditText etText) {
+            return etText.getText().toString().trim().length() == 0;
         }
 
         public static void toggleEditTexts() {

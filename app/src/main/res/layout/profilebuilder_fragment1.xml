@@ -18,7 +18,7 @@
                 android:id="@+id/profilebuilderintro1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:gravity="center"
                 android:text="@string/profilebuilder_intro"
                 android:textAppearance="@android:style/TextAppearance.Large" />
@@ -95,6 +95,32 @@
                 android:textAppearance="@android:style/TextAppearance.Large"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white" />
+
+            <msqrd.sickday.AutoResizeTextView
+                android:id="@+id/bHomeAddress"
+                android:layout_below="@+id/formPassword"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:textColor="@android:color/white"
+                android:layout_margin="10dp"
+                android:background="@color/sickday_blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Home Address"/>
+
+            <msqrd.sickday.AutoResizeTextView
+                android:id="@+id/bWorkAddress"
+                android:layout_below="@+id/bHomeAddress"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:textColor="@android:color/white"
+                android:layout_margin="10dp"
+                android:background="@color/sickday_blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Work Address"/>
 
         </RelativeLayout>
     </ScrollView>

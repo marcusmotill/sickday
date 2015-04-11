@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:textCursorDrawable="@null"
+        android:id="@+id/addressStreet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/sickday_blue"
+        android:hint="Street"
+        android:padding="10dp"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white" />
+
+    <EditText
+        android:textCursorDrawable="@null"
+        android:id="@+id/addressCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/sickday_blue"
+        android:hint="City"
+        android:padding="10dp"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white" />
+
+    <EditText
+        android:textCursorDrawable="@null"
+        android:id="@+id/addressState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/sickday_blue"
+        android:hint="State"
+        android:padding="10dp"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white" />
+
+    <EditText
+        android:inputType="number"
+        android:textCursorDrawable="@null"
+        android:id="@+id/addressZip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/sickday_blue"
+        android:hint="Zip Code"
+        android:padding="10dp"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textCursorDrawable="@null"
+            android:id="@+id/addressCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/sickday_blue"
+            android:hint="Cancel"
+            android:padding="10dp"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textCursorDrawable="@null"
+            android:id="@+id/addressConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/sickday_blue"
+            android:hint="Confirm"
+            android:padding="10dp"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white" />
+
+        </LinearLayout>
+
+</LinearLayout>

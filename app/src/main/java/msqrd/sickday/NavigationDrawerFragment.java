@@ -3,7 +3,9 @@ package msqrd.sickday;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.net.Uri;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -17,6 +19,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,14 +31,20 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -65,15 +75,24 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     private ActionBarDrawerToggle mDrawerToggle;
 
     private DrawerLayout mDrawerLayout;
-    private ListView mDrawerListView;
+    public static ListView mDrawerListView;
     private View mFragmentContainerView;
     private static TextView tvProfileName;
+    static int listViewHeight;
+
+    ExpandableListView expandableListView;
+    ExpandableListAdapter expandableListAdapter;
+    List expandableListTitle;
 
 
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
     AutoResizeTextView tvlogOff;
+
+    ScrollView menuScroll;
+    RelativeLayout profileHeader;
+    RelativeLayout parentView;
 
     public NavigationDrawerFragment() {
     }
@@ -86,7 +105,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
-
 
 
         if (savedInstanceState != null) {
@@ -124,9 +142,76 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         });
         mDrawerListView.setAdapter(new NavigationDrawerAdapter(getActivity().getApplicationContext(),
                 new String[]{getString(R.string.home_menu_item),
-                        getString(R.string.profile_menu_item),
-                        getString(R.string.help_menu_item)}));
+                        getString(R.string.profile_menu_item)}));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+
+
+        menuScroll = (ScrollView) mainDrawer.findViewById(R.id.menuScrollView);
+        profileHeader = (RelativeLayout) mainDrawer.findViewById(R.id.profileHolder);
+        parentView = (RelativeLayout) mainDrawer.findViewById(R.id.menuParent);
+
+        mDrawerListView.getLayoutParams().height = dpToPx(123);
+
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int screenHeight = size.y;
+        int screenWidth = size.x;
+
+
+        HashMap expandableListDetail = new HashMap();
+
+        List menuItems = new ArrayList();
+        menuItems.add("About us");
+        menuItems.add("Help/FAQs");
+        menuItems.add("Conditions we treat");
+        menuItems.add("Disclaimer");
+
+        expandableListDetail.put("More Information", menuItems);
+
+        expandableListView = (ExpandableListView) mainDrawer.findViewById(R.id.expandable_menu);
+        expandableListTitle = new ArrayList(expandableListDetail.keySet());
+        expandableListAdapter = new ExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
+        expandableListView.setAdapter(expandableListAdapter);
+        expandableListView.setGroupIndicator(null);
+
+        expandableListView.getLayoutParams().height = screenHeight - profileHeader.getLayoutParams().height - mDrawerListView.getLayoutParams().height - tvlogOff.getLayoutParams().height;
+
+
+        Log.i("Scroll Height", "" + menuScroll.getLayoutParams().height);
+        Log.i("List Height", "" + mDrawerListView.getLayoutParams().height);
+        Log.i("Expand Height", "" + expandableListView.getLayoutParams().height);
+
+
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                if(childPosition == 0){
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, new AboutUs_Fragment())
+                            .commit();
+                }else if(childPosition == 1){
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, new FAQ_Fragment())
+                            .commit();
+
+                }else if(childPosition == 2){
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, new Conditions_Fragment())
+                            .commit();
+                }else if(childPosition == 3){
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, new Disclaimer_Fragment())
+                            .commit();
+                }
+                mDrawerLayout.closeDrawers();
+
+                return false;
+            }
+        });
         return mainDrawer;
     }
 
@@ -300,7 +385,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == tvlogOff.getId()){
+        if (id == tvlogOff.getId()) {
 
             final Dialog dialogLogOff;
             dialogLogOff = new Dialog(getActivity());
@@ -334,6 +419,13 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         }
     }
 
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
+        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return px;
+    }
+
+
     /**
      * Callbacks interface that all activities using this fragment must implement.
      */
@@ -361,8 +453,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
             listIcons = new int[]{
                     R.drawable.home_icon,
-                    R.drawable.insurance_info_icon,
-                    R.drawable.help_icon};
+                    R.drawable.insurance_info_icon};
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = inflater.inflate(R.layout.navigationdrawer_row, parent, false);
@@ -376,22 +467,23 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             int height = 0;
             if (position == 0) {
                 height = dpToPx(30);
+                listViewHeight += lp.height; //adds the padding
                 lp.setMargins(dpToPx(10), dpToPx(10), dpToPx(10), dpToPx(10));
             } else if (position == 1) {
                 height = dpToPx(43);
+                listViewHeight += 20; //adds the padding
                 lp.setMargins(dpToPx(10), dpToPx(10), dpToPx(10), dpToPx(10));
             } else if (position == 2) {
                 height = dpToPx(40);
                 width = dpToPx(40);
-                lp.setMargins(dpToPx(20), dpToPx(10), dpToPx(20), dpToPx(10));
-            } else if (position == 3) {
-                height = dpToPx(40);
-                width = dpToPx(40);
+                listViewHeight += lp.height; //adds the padding
                 lp.setMargins(dpToPx(20), dpToPx(10), dpToPx(20), dpToPx(10));
             }
             imageView.getLayoutParams().height = height;
             imageView.getLayoutParams().width = width;
 
+            //listViewHeight += height;
+            //mDrawerListView.getLayoutParams().height = listViewHeight;
 
             textView.setText(listTitles[position]);
             // change the icon for Windows and iPhone
@@ -405,6 +497,22 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
             int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
             return px;
+        }
+    }
+
+    public static class ExpandableListDataPump {
+        public static HashMap getData() {
+            HashMap expandableListDetail = new HashMap();
+
+            List technology = new ArrayList();
+            technology.add("Beats sued for noise-cancelling tech");
+            technology.add("Wikipedia blocks US Congress edits");
+            technology.add("Google quizzed over deleted links");
+            technology.add("Nasa seeks aid with Earth-Mars links");
+            technology.add("The Good, the Bad and the Ugly");
+
+            expandableListDetail.put("TECHNOLOGY NEWS", technology);
+            return expandableListDetail;
         }
     }
 }
