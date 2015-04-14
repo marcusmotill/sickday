@@ -1,4 +1,4 @@
-package msqrd.sickday;
+package eventhorizon.sickday;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,11 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by marcusmotill on 4/10/15.
+ * Created by marcusmotill on 3/1/15.
  */
-public class AboutUs_Fragment extends Fragment {
+public class Help_Fragment extends Fragment {
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.aboutus_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.help_fragment, container, false);
+
+        return rootView;
     }
 }

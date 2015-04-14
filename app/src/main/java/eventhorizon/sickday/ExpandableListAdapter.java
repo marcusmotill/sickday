@@ -1,26 +1,30 @@
-package msqrd.sickday;
+package eventhorizon.sickday;
 
-import android.content.Context;
-import android.graphics.Typeface;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by marcusmotill on 4/10/15.
  */
-public class ConditionsListViewAdapter extends BaseExpandableListAdapter {
+
+import java.util.HashMap;
+import java.util.List;
+
+import android.content.Context;
+import android.graphics.Typeface;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+
+public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<String> expandableListTitle;
     private HashMap<String, List<String>> expandableListDetail;
 
-    public ConditionsListViewAdapter(Context context, List<String> expandableListTitle,
+    public ExpandableListAdapter(Context context, List<String> expandableListTitle,
                                  HashMap<String, List<String>> expandableListDetail) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
@@ -45,10 +49,10 @@ public class ConditionsListViewAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.conditions_list_item, null);
+            convertView = layoutInflater.inflate(R.layout.list_group_item, null);
         }
         AutoResizeTextView expandedListTextView = (AutoResizeTextView) convertView
-                .findViewById(R.id.conditionListItem);
+                .findViewById(R.id.expandedListItem);
         expandedListTextView.setText(expandedListText);
         return convertView;
     }
@@ -81,13 +85,23 @@ public class ConditionsListViewAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.conditions_list_group, null);
+            convertView = layoutInflater.inflate(R.layout.list_group, null);
         }
         AutoResizeTextView listTitleTextView = (AutoResizeTextView) convertView
-                .findViewById(R.id.conditionGroup);
+                .findViewById(R.id.listTitle);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
         listTitleTextView.setText(listTitle);
 
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.expandable_icon);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        imageView.setLayoutParams(lp);
+
+        int width = dpToPx(60);
+        int height = dpToPx(30);
+
+        lp.setMargins(dpToPx(10), dpToPx(10), dpToPx(10), dpToPx(10));
+        imageView.getLayoutParams().height = height;
+        imageView.getLayoutParams().width = width;
         return convertView;
     }
 
@@ -107,4 +121,3 @@ public class ConditionsListViewAdapter extends BaseExpandableListAdapter {
         return px;
     }
 }
-

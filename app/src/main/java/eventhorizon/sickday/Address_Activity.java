@@ -1,9 +1,8 @@
-package msqrd.sickday;
+package eventhorizon.sickday;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;

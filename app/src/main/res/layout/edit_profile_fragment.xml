@@ -86,7 +86,7 @@
                 android:textColorHint="@android:color/white"
                 android:layout_below="@+id/tvPhoneLabel" />
 
-            <msqrd.sickday.AutoResizeTextView
+            <eventhorizon.sickday.AutoResizeTextView
                 android:id="@+id/bHomeAddressEdit"
                 android:layout_below="@+id/etInsuranceInformationPhone"
                 android:gravity="center"
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:text="Edit Home Address"/>
 
-            <msqrd.sickday.AutoResizeTextView
+            <eventhorizon.sickday.AutoResizeTextView
                 android:id="@+id/bWorkAddressEdit"
                 android:layout_below="@+id/bHomeAddressEdit"
                 android:gravity="center"

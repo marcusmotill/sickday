@@ -1,14 +1,11 @@
-package msqrd.sickday;
+package eventhorizon.sickday;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
-import com.parse.Parse;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 /**

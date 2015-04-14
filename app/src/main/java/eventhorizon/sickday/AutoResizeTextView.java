@@ -1,4 +1,4 @@
-package msqrd.sickday;
+package eventhorizon.sickday;
 
 import android.content.Context;
 import android.text.Layout.Alignment;

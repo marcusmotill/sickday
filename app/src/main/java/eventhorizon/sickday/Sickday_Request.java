@@ -1,4 +1,4 @@
-package msqrd.sickday;
+package eventhorizon.sickday;
 
 /**
  * Created by marcusmotill on 2/27/15.

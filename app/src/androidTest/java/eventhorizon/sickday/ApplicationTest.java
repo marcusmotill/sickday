@@ -1,4 +1,4 @@
-package msqrd.sickday;
+package eventhorizon.sickday;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

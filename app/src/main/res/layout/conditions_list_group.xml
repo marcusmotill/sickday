@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <msqrd.sickday.AutoResizeTextView
+    <eventhorizon.sickday.AutoResizeTextView
         android:padding="?android:attr/expandableListPreferredItemPaddingLeft"
         android:id="@+id/conditionGroup"
         android:layout_width="match_parent"

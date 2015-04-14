@@ -69,7 +69,7 @@
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
-    <msqrd.sickday.AutoResizeTextView
+    <eventhorizon.sickday.AutoResizeTextView
         android:visibility="gone"
         android:id="@+id/tvCallSickDay"
         android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <msqrd.sickday.AutoResizeTextView
+    <eventhorizon.sickday.AutoResizeTextView
         android:id="@+id/tvCall911"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

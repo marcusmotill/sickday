@@ -11,7 +11,7 @@
         android:layout_height="30dp"
         android:src="@drawable/physician_mode"/>
     <!--Size edited in ExandableListAdapter-->
-    <msqrd.sickday.AutoResizeTextView
+    <eventhorizon.sickday.AutoResizeTextView
         android:id="@+id/listTitle"
         android:layout_width="match_parent"
         android:layout_height="40dp"

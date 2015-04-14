@@ -1,4 +1,4 @@
-package msqrd.sickday;
+package eventhorizon.sickday;
 
 import android.app.Activity;
 import android.content.Intent;

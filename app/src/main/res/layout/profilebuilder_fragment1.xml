@@ -96,7 +96,7 @@
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white" />
 
-            <msqrd.sickday.AutoResizeTextView
+            <eventhorizon.sickday.AutoResizeTextView
                 android:id="@+id/bHomeAddress"
                 android:layout_below="@+id/formPassword"
                 android:gravity="center"
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:text="Add Home Address"/>
 
-            <msqrd.sickday.AutoResizeTextView
+            <eventhorizon.sickday.AutoResizeTextView
                 android:id="@+id/bWorkAddress"
                 android:layout_below="@+id/bHomeAddress"
                 android:gravity="center"

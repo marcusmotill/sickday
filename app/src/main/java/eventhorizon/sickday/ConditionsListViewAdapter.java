@@ -1,32 +1,26 @@
-package msqrd.sickday;
-
-import android.util.DisplayMetrics;
-import android.widget.BaseExpandableListAdapter;
-
-/**
- * Created by marcusmotill on 4/10/15.
- */
-
-import java.util.HashMap;
-import java.util.List;
+package eventhorizon.sickday;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-public class ExpandableListAdapter extends BaseExpandableListAdapter {
+import java.util.HashMap;
+import java.util.List;
+
+/**
+ * Created by marcusmotill on 4/10/15.
+ */
+public class ConditionsListViewAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<String> expandableListTitle;
     private HashMap<String, List<String>> expandableListDetail;
 
-    public ExpandableListAdapter(Context context, List<String> expandableListTitle,
+    public ConditionsListViewAdapter(Context context, List<String> expandableListTitle,
                                  HashMap<String, List<String>> expandableListDetail) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
@@ -51,10 +45,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.list_group_item, null);
+            convertView = layoutInflater.inflate(R.layout.conditions_list_item, null);
         }
         AutoResizeTextView expandedListTextView = (AutoResizeTextView) convertView
-                .findViewById(R.id.expandedListItem);
+                .findViewById(R.id.conditionListItem);
         expandedListTextView.setText(expandedListText);
         return convertView;
     }
@@ -87,23 +81,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.list_group, null);
+            convertView = layoutInflater.inflate(R.layout.conditions_list_group, null);
         }
         AutoResizeTextView listTitleTextView = (AutoResizeTextView) convertView
-                .findViewById(R.id.listTitle);
+                .findViewById(R.id.conditionGroup);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
         listTitleTextView.setText(listTitle);
 
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.expandable_icon);
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        imageView.setLayoutParams(lp);
-
-        int width = dpToPx(60);
-        int height = dpToPx(30);
-
-        lp.setMargins(dpToPx(10), dpToPx(10), dpToPx(10), dpToPx(10));
-        imageView.getLayoutParams().height = height;
-        imageView.getLayoutParams().width = width;
         return convertView;
     }
 
@@ -123,3 +107,4 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return px;
     }
 }
+

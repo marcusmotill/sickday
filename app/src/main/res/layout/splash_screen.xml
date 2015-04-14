@@ -6,16 +6,10 @@
     android:orientation="vertical">
 
 
-    <ImageView
-        android:id="@+id/splashLogo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/logohq"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+
 
     <ImageView
-        android:layout_marginTop="20dp"
+        android:scaleType="fitStart"
         android:id="@+id/splashlogowords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +18,15 @@
         android:background="@android:color/white"
         android:src="@drawable/sickday_logo_words" />
 
-    <msqrd.sickday.AutoResizeTextView
+    <ImageView
+        android:id="@+id/splashLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logohq"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <eventhorizon.sickday.AutoResizeTextView
         android:id="@+id/tvWarning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
