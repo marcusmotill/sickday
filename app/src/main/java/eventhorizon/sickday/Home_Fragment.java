@@ -73,9 +73,10 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
 
 
     static SupportMapFragment mapFragment;
-    AutoResizeTextView tvCall911;
+    AutoResizeTextView tvCall911, tvRequestSickday;
     AutoCompleteTextView autoCompleteTextView;
-    ImageView mapOverlay, imRequestSickday;
+    ImageView mapOverlay;
+    RelativeLayout rRequestSickday, call911Layout;
     FrameLayout mapHolder;
     View rootView;
     String addressString;
@@ -91,14 +92,17 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
         autoCompleteTextView.setOnItemClickListener(this);
 
         tvCall911 = (AutoResizeTextView) rootView.findViewById(R.id.tvCall911);
-        imRequestSickday = (ImageView) rootView.findViewById(R.id.imRequestSickDay);
+        tvRequestSickday = (AutoResizeTextView) rootView.findViewById(R.id.tvRequestSickDay);
+        rRequestSickday = (RelativeLayout) rootView.findViewById(R.id.requestSickdayLayout);
+        call911Layout = (RelativeLayout) rootView.findViewById(R.id.call911Layout);
         mapHolder = (FrameLayout) rootView.findViewById(R.id.mapFrame);
         mapOverlay = (ImageView) rootView.findViewById(R.id.mapOverlay);
 
-        imRequestSickday.setOnClickListener(this);
-        tvCall911.setOnClickListener(this);
+        rRequestSickday.setOnClickListener(this);
+        call911Layout.setOnClickListener(this);
 
         autoCompleteTextView.setTypeface(App.caecilia);
+        tvRequestSickday.setTypeface(App.caecilia);
         tvCall911.setTypeface(App.caecilia);
 
         return rootView;
@@ -242,9 +246,9 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
     public void onClick(View v) {
         int id = v.getId();
 
-        if(id == imRequestSickday.getId()){
+        if(id == rRequestSickday.getId()){
             requestSickday();
-        }else if(id == tvCall911.getId()){
+        }else if(id == call911Layout.getId()){
             call911Popup();
         }
     }

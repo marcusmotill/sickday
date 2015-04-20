@@ -10,7 +10,7 @@
     <string name="home_fragment_warning">If you have chest pain, shortness of breath, head trauma, or have loss of consciousness, go directly to an E.R. or call 911.</string>
     <string name="call_sickday">Call Sickday</string>
     <string name="call_911">Call 911</string>
-    <string name="request_sickday">Request Sickday</string>
+    <string name="request_sickday">Request Sickday Visit</string>
     <string name="check_connection">Please check your connection and try again</string>
     <string name="profilebuilder_intro">We need to get some information from before we can visit you...anywhere!</string>
     <string name="profilebuilder_first_name">First Name</string>
@@ -36,7 +36,7 @@
     <string name="are_you_sure_911">Are you sure you want to call 911?</string>
     <string name="are_you_sure">Are you sure you want to request a Sickday visit?</string>
     <string name="yes_sure">Yes, call 911</string>
-    <string name="yes_request">Yes, request Sickday</string>
+    <string name="yes_request">Yes, request Sickday visit</string>
     <string name="sickday_confirmed">Your Sickday is confirmed, expect a phone call from us within 5 minutes!</string>
     <string name="sick_in_city">Sick in the city?</string>
     <string name="medical_house_calls">Medical House Calls</string>
