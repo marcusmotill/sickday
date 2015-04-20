@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tvAboutUsTitle"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:textAppearance="@android:style/TextAppearance.Large"
@@ -19,6 +20,7 @@
         android:background="@color/sickday_blue"/>
 
     <TextView
+        android:id="@+id/tvAboutUs"
         android:layout_margin="10dp"
         android:textAppearance="@android:style/TextAppearance.Medium"
         android:layout_width="match_parent"

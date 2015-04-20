@@ -34,7 +34,7 @@
     <string name="login_popup_text">To view or edit insurance information please re-enter your password.</string>
     <string name="cancel">Cancel</string>
     <string name="are_you_sure_911">Are you sure you want to call 911?</string>
-    <string name="are_you_sure">Are you sure you want to request a Sickday?</string>
+    <string name="are_you_sure">Are you sure you want to request a Sickday visit?</string>
     <string name="yes_sure">Yes, call 911</string>
     <string name="yes_request">Yes, request Sickday</string>
     <string name="sickday_confirmed">Your Sickday is confirmed, expect a phone call from us within 5 minutes!</string>
@@ -44,4 +44,5 @@
     <string name="log_out">Log Out</string>
     <string name="confirm_logoff">Are you sure you want to log out?</string>
     <string name="yes_logoff">Yes, log off</string>
+    <string name="disclaimer">The Content of this app is not intended to be a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.\n\n\nIf you think you may have a medical emergency, call your doctor or 911 immediately.\n\n\nYou agree to defend, indemnify, and hold Sickday, its officers, directors, employees, agents, licensors, and suppliers, harmless from and against any claims, actions or demands, liabilities and settlements including without limitation, reasonable legal and accounting fees, resulting from, or alleged to result from incorrectly using this service.</string>
 </resources>

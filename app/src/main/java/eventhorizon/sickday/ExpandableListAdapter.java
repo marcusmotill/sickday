@@ -54,6 +54,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         AutoResizeTextView expandedListTextView = (AutoResizeTextView) convertView
                 .findViewById(R.id.expandedListItem);
         expandedListTextView.setText(expandedListText);
+        expandedListTextView.setTypeface(App.caecilia);
         return convertView;
     }
 
@@ -89,7 +90,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
         AutoResizeTextView listTitleTextView = (AutoResizeTextView) convertView
                 .findViewById(R.id.listTitle);
-        listTitleTextView.setTypeface(null, Typeface.BOLD);
+        listTitleTextView.setTypeface(App.caecilia);
         listTitleTextView.setText(listTitle);
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.expandable_icon);

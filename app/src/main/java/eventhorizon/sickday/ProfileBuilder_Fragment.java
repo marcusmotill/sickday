@@ -46,6 +46,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
         context = getActivity();
         tvNext = (TextView) rootView.findViewById(R.id.tvNext);
         tvNext.setOnClickListener(this);
+        tvNext.setTypeface(App.caecilia);
 
         mViewPager = (CustomViewPager) rootView.findViewById(R.id.profilePager);
         mViewPager.setPagingEnabled(false);
@@ -138,6 +139,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
         static EditText tvPhoneNumber;
         static TextView bAddressHome;
         static TextView bAddressWork;
+        static TextView tvIntro;
 
         String streetString, cityString, stateString, zipString;
         static ParseUser user;
@@ -147,6 +149,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.profilebuilder_fragment1, container, false);
 
+            tvIntro = (TextView) rootView.findViewById(R.id.profilebuilderintro1);
             tvFirstName = (EditText) rootView.findViewById(R.id.formFirstName);
             tvLastName = (EditText) rootView.findViewById(R.id.formLastName);
             tvEmail = (EditText) rootView.findViewById(R.id.formEmail);
@@ -157,6 +160,15 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
 
             bAddressHome.setOnClickListener(this);
             bAddressWork.setOnClickListener(this);
+
+            tvIntro.setTypeface(App.caecilia);
+            tvFirstName.setTypeface(App.caecilia);
+            tvLastName.setTypeface(App.caecilia);
+            tvEmail.setTypeface(App.caecilia);
+            tvPassword.setTypeface(App.caecilia);
+            tvPhoneNumber.setTypeface(App.caecilia);
+            bAddressHome.setTypeface(App.caecilia);
+            bAddressWork.setTypeface(App.caecilia);
 
             user = new ParseUser();
 
@@ -189,6 +201,13 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
             final EditText city = (EditText) dialog.findViewById(R.id.addressCity);
             final EditText state = (EditText) dialog.findViewById(R.id.addressState);
             final EditText zip = (EditText) dialog.findViewById(R.id.addressZip);
+
+            confirm.setTypeface(App.caecilia);
+            cancel.setTypeface(App.caecilia);
+            street.setTypeface(App.caecilia);
+            city.setTypeface(App.caecilia);
+            state.setTypeface(App.caecilia);
+            zip.setTypeface(App.caecilia);
 
             if(streetString != null | cityString != null | stateString != null | zipString != null){
                 try{
@@ -276,6 +295,8 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                             });
                         } else {
                             Log.i("User Sign up", "Failed");
+                            dialog.dismiss();
+                            Toast.makeText(context, "Registration failed.\nCheck internet connect and make sure email is valid", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
                         }
                     }

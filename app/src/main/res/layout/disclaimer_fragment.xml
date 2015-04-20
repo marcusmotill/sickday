@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tvDisclaimerTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -16,21 +17,19 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/sickday_blue" />
+        android:background="@color/sickday_blue"
+        android:layout_marginBottom="10dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tvDisclaimer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="The Content of this app is not intended to be a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.
-
-If you think you may have a medical emergency, call your doctor or 911 immediately.
-
-You agree to defend, indemnify, and hold Sickday, its officers, directors, employees, agents, licensors, and suppliers, harmless from and against any claims, actions or demands, liabilities and settlements including without limitation, reasonable legal and accounting fees, resulting from, or alleged to result from incorrectly using this service."
+            android:text="@string/disclaimer"
             android:textAppearance="@android:style/TextAppearance.Medium" />
     </ScrollView>
 </LinearLayout>

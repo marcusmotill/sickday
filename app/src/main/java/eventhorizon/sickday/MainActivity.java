@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.TextView;
 
 
 import com.parse.ParseAnalytics;
@@ -34,7 +35,10 @@ public class MainActivity extends ActionBarActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(Color.WHITE);
+        getSupportActionBar().setTitle(null);
+
+        TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbarTitle);
+        toolbarTitle.setTypeface(App.bodoni);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);

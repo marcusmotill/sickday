@@ -18,7 +18,7 @@
              />
 
         <TextView
-            android:textColor="@android:color/black"
+            android:textColor="@color/font_color_blue"
             android:textSize="25dp"
             android:id="@+id/rowItemTitle"
             android:layout_width="wrap_content"

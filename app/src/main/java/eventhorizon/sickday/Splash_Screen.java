@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.parse.ParseUser;
 
@@ -16,12 +17,21 @@ public class Splash_Screen extends Activity {
     private static int SPLASH_TIME_OUT = 4000;
     private Thread mSplashThread;
     ImageView logo;
+    TextView tvSickInCity, tvMedicalHouseCalls, tvHomeOfficeHotel, tvWarning;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
 
-        // Enable Local Datastore.
+        tvSickInCity = (TextView) findViewById(R.id.tvSickInCity);
+        tvMedicalHouseCalls = (TextView) findViewById(R.id.tvMedicalHouseCalls);
+        tvHomeOfficeHotel = (TextView) findViewById(R.id.tvHomeOfficeHotel);
+        tvWarning = (TextView) findViewById(R.id.tvWarning);
+
+        tvSickInCity.setTypeface(App.caecilia);
+        tvMedicalHouseCalls.setTypeface(App.caecilia);
+        tvHomeOfficeHotel.setTypeface(App.caecilia);
+        tvWarning.setTypeface(App.caecilia);
 
         logo = (ImageView) findViewById(R.id.splashLogo);
 

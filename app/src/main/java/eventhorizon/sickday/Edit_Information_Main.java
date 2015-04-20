@@ -69,6 +69,8 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
         mViewPager.setOnPageChangeListener(new ProfilePagerListener());
         bEditProfile.setOnClickListener(this);
         bEditInsurance.setOnClickListener(this);
+
+        bEditProfile.setTypeface(App.caecilia);
         return rootView;
     }
 
@@ -165,6 +167,9 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
         static ProgressDialog dialog;
         static TextView bAddressHome;
         static TextView bAddressWork;
+        static TextView tvFirstName;
+        static TextView tvLastName;
+        static TextView tvPhone;
 
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -173,11 +178,23 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
             etFirstName = (EditText) rootView.findViewById(R.id.etInsuranceInformationFirstName);
             etLastName = (EditText) rootView.findViewById(R.id.etInsuranceInformationLastName);
             etPhone = (EditText) rootView.findViewById(R.id.etInsuranceInformationPhone);
+            tvFirstName = (TextView) rootView.findViewById(R.id.tvFirstNameLabel);
+            tvLastName = (TextView) rootView.findViewById(R.id.tvLastNameLabel);
+            tvPhone = (TextView) rootView.findViewById(R.id.tvPhoneLabel);
             bAddressHome = (TextView) rootView.findViewById(R.id.bHomeAddressEdit);
             bAddressWork = (TextView) rootView.findViewById(R.id.bWorkAddressEdit);
 
             bAddressHome.setOnClickListener(this);
             bAddressWork.setOnClickListener(this);
+
+            etFirstName.setTypeface(App.caecilia);
+            etLastName.setTypeface(App.caecilia);
+            etPhone.setTypeface(App.caecilia);
+            tvFirstName.setTypeface(App.caecilia);
+            tvLastName.setTypeface(App.caecilia);
+            tvPhone.setTypeface(App.caecilia);
+            bAddressHome.setTypeface(App.caecilia);
+            bAddressWork.setTypeface(App.caecilia);
 
             toggleEditTexts();
             init();
@@ -210,6 +227,13 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
             final EditText city = (EditText) dialog.findViewById(R.id.addressCity);
             final EditText state = (EditText) dialog.findViewById(R.id.addressState);
             final EditText zip = (EditText) dialog.findViewById(R.id.addressZip);
+
+            confirm.setTypeface(App.caecilia);
+            cancel.setTypeface(App.caecilia);
+            street.setTypeface(App.caecilia);
+            city.setTypeface(App.caecilia);
+            state.setTypeface(App.caecilia);
+            zip.setTypeface(App.caecilia);
 
             if(user.get(address + "_street") != null){
                 street.setText(user.get(address + "_street").toString());

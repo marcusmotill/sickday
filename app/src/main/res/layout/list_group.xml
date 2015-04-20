@@ -19,7 +19,7 @@
         android:maxLines="1"
         android:text="More Information"
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-        android:textColor="@android:color/black"
+        android:textColor="@color/font_color_blue"
         android:textSize="25dp"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"

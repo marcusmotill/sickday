@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public class Conditions_Fragment extends Fragment {
     ExpandableListView expandableListView;
     ConditionsListViewAdapter expandableListAdapter;
     List expandableListTitle;
+    TextView conditionsTitle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,9 +30,13 @@ public class Conditions_Fragment extends Fragment {
         HashMap expandableListDetail = getData();
 
         expandableListView = (ExpandableListView) rootView.findViewById(R.id.conditionsListView);
+        conditionsTitle = (TextView) rootView.findViewById(R.id.tvConditionsTitle);
+
         expandableListTitle = new ArrayList(expandableListDetail.keySet());
         expandableListAdapter = new ConditionsListViewAdapter(getActivity(), expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
+
+        conditionsTitle.setTypeface(App.caecilia);
 
         return rootView;
     }
@@ -50,6 +56,8 @@ public class Conditions_Fragment extends Fragment {
         expandableListDetail.put("Head/Eyes/Ears/Nose/Throat", items);
 
         items = new ArrayList();
+        items.add("Body Aches");
+        items.add("Chills");
         expandableListDetail.put("Flu and Fever", items);
 
         items = new ArrayList();

@@ -28,11 +28,23 @@
         <!-- We use a Toolbar so that our drawer can be displayed
              in front of the action bar -->
         <android.support.v7.widget.Toolbar
+            android:title=""
             android:id="@+id/toolbar"
             android:layout_height="?attr/actionBarSize"
             android:layout_width="match_parent"
             android:minHeight="?attr/actionBarSize"
-            android:background="@color/sickday_blue" />
+            android:background="@color/sickday_blue">
+
+            <TextView
+                android:textSize="30sp"
+                android:id="@+id/toolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sickday"
+                android:textColor="@android:color/white"
+                />
+
+            </android.support.v7.widget.Toolbar>
 
         <!-- The rest of your content view -->
         <FrameLayout

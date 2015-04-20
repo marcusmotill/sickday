@@ -24,9 +24,9 @@ import com.parse.ParseUser;
 public class Login_Activity extends Activity implements View.OnClickListener {
 
     EditText etEmail, etPassword;
-    TextView tvIncorrectInfo;
+    TextView tvIncorrectInfo, tvSickInCity, tvMedicalHouseCalls, tvHomeOfficeHotel, tvWelcome;
     Button bLogin, bSignUp;
-    ImageView logo;
+    ImageView logo, imHome, imOffice;
     RelativeLayout contentLayout;
 
     @Override
@@ -37,6 +37,13 @@ public class Login_Activity extends Activity implements View.OnClickListener {
         etEmail = (EditText) findViewById(R.id.welcomeEmail);
         etPassword = (EditText) findViewById(R.id.loginPopupPassword);
         tvIncorrectInfo = (TextView) findViewById(R.id.tvIncorrectLogin);
+        tvSickInCity = (TextView) findViewById(R.id.tvSickInCity);
+        tvMedicalHouseCalls = (TextView)findViewById(R.id.tvMedicalHouseCalls);
+        tvHomeOfficeHotel = (TextView) findViewById(R.id.tvHomeOfficeHotel);
+        tvWelcome = (TextView) findViewById(R.id.tvWelcome);
+        imHome = (ImageView) findViewById(R.id.imHome);
+        imOffice = (ImageView) findViewById(R.id.imOffice);
+
         tvIncorrectInfo.setVisibility(View.INVISIBLE);
         bLogin = (Button) findViewById(R.id.loginButton);
         bSignUp = (Button) findViewById(R.id.registerButton);
@@ -46,15 +53,30 @@ public class Login_Activity extends Activity implements View.OnClickListener {
         bLogin.setOnClickListener(this);
         bSignUp.setOnClickListener(this);
 
+        etEmail.setTypeface(App.caecilia);
+        etPassword.setTypeface(App.caecilia);
+        tvIncorrectInfo.setTypeface(App.caecilia);
+        tvSickInCity.setTypeface(App.caecilia);
+        tvMedicalHouseCalls.setTypeface(App.caecilia);
+        tvHomeOfficeHotel.setTypeface(App.caecilia);
+        bLogin.setTypeface(App.caecilia);
+        bSignUp.setTypeface(App.caecilia);
+        tvWelcome.setTypeface(App.caecilia);
+
         final Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         Animation slide = AnimationUtils.loadAnimation(this, R.anim.overshoot);
 
 
         etEmail.setVisibility(View.INVISIBLE);
         etPassword.setVisibility(View.INVISIBLE);
-        contentLayout.setVisibility(View.INVISIBLE);
         bSignUp.setVisibility(View.INVISIBLE);
         bLogin.setVisibility(View.INVISIBLE);
+        tvSickInCity.setVisibility(View.INVISIBLE);
+        tvMedicalHouseCalls.setVisibility(View.INVISIBLE);
+        tvHomeOfficeHotel.setVisibility(View.INVISIBLE);
+        imOffice.setVisibility(View.INVISIBLE);
+        imHome.setVisibility(View.INVISIBLE);
+
         slide.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -68,12 +90,22 @@ public class Login_Activity extends Activity implements View.OnClickListener {
                 contentLayout.setVisibility(View.VISIBLE);
                 bSignUp.setVisibility(View.VISIBLE);
                 bLogin.setVisibility(View.VISIBLE);
+                tvSickInCity.setVisibility(View.VISIBLE);
+                tvMedicalHouseCalls.setVisibility(View.VISIBLE);
+                tvHomeOfficeHotel.setVisibility(View.VISIBLE);
+                imOffice.setVisibility(View.VISIBLE);
+                imHome.setVisibility(View.VISIBLE);
 
                 etEmail.startAnimation(fadeIn);
                 etPassword.startAnimation(fadeIn);
                 contentLayout.startAnimation(fadeIn);
                 bLogin.startAnimation(fadeIn);
                 bSignUp.startAnimation(fadeIn);
+                tvSickInCity.startAnimation(fadeIn);
+                tvMedicalHouseCalls.startAnimation(fadeIn);
+                tvHomeOfficeHotel.startAnimation(fadeIn);
+                imOffice.startAnimation(fadeIn);
+                imHome.startAnimation(fadeIn);
             }
 
             @Override

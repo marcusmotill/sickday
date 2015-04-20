@@ -7,7 +7,7 @@
 
     <TextView
         android:layout_margin="10dp"
-        android:id="@+id/tvAreYouSure"
+        android:id="@+id/tvAreYouSureLogOff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -17,7 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvAreYouSure"
+        android:layout_below="@id/tvAreYouSureLogOff"
         android:orientation="vertical"
         >
         <Button

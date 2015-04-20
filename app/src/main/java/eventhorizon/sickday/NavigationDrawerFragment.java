@@ -125,10 +125,12 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         View mainDrawer = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView = (ListView) mainDrawer.findViewById(R.id.navDrawerListView);
         tvProfileName = (TextView) mainDrawer.findViewById(R.id.profileName);
+        tvProfileName.setTypeface(App.caecilia);
         updateProfileName();
 
         tvlogOff = (AutoResizeTextView) mainDrawer.findViewById(R.id.logOffButton);
         tvlogOff.setOnClickListener(this);
+        tvlogOff.setTypeface(App.caecilia);
 
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -371,7 +373,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setTitle(R.string.app_name);
     }
 
     private ActionBar getActionBar() {
@@ -391,6 +392,11 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
             Button confirm = (Button) dialogLogOff.findViewById(R.id.bConfirmLogOff);
             Button cancel = (Button) dialogLogOff.findViewById(R.id.bCanelLogOff);
+            TextView areYouSureLogOff = (TextView) dialogLogOff.findViewById(R.id.tvAreYouSureLogOff);
+
+            confirm.setTypeface(App.caecilia);
+            cancel.setTypeface(App.caecilia);
+            areYouSureLogOff.setTypeface(App.caecilia);
 
             confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -485,6 +491,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             // change the icon for Windows and iPhone
             String s = listTitles[position];
             imageView.setBackgroundResource(listIcons[position]);
+            textView.setTypeface(App.caecilia);
 
             return rowView;
         }
@@ -493,22 +500,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
             int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
             return px;
-        }
-    }
-
-    public static class ExpandableListDataPump {
-        public static HashMap getData() {
-            HashMap expandableListDetail = new HashMap();
-
-            List technology = new ArrayList();
-            technology.add("Beats sued for noise-cancelling tech");
-            technology.add("Wikipedia blocks US Congress edits");
-            technology.add("Google quizzed over deleted links");
-            technology.add("Nasa seeks aid with Earth-Mars links");
-            technology.add("The Good, the Bad and the Ugly");
-
-            expandableListDetail.put("TECHNOLOGY NEWS", technology);
-            return expandableListDetail;
         }
     }
 }

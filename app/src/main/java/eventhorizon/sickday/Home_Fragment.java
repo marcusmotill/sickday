@@ -30,6 +30,7 @@ import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -52,6 +53,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -71,7 +73,7 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
 
 
     static SupportMapFragment mapFragment;
-    AutoResizeTextView tvCallSickDay, tvCall911;
+    AutoResizeTextView tvCall911;
     AutoCompleteTextView autoCompleteTextView;
     ImageView mapOverlay, imRequestSickday;
     FrameLayout mapHolder;
@@ -88,16 +90,16 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
         autoCompleteTextView.setAdapter(autocompleteadapter);
         autoCompleteTextView.setOnItemClickListener(this);
 
-        tvCallSickDay = (AutoResizeTextView) rootView.findViewById(R.id.tvCallSickDay);
         tvCall911 = (AutoResizeTextView) rootView.findViewById(R.id.tvCall911);
         imRequestSickday = (ImageView) rootView.findViewById(R.id.imRequestSickDay);
         mapHolder = (FrameLayout) rootView.findViewById(R.id.mapFrame);
         mapOverlay = (ImageView) rootView.findViewById(R.id.mapOverlay);
 
-        tvCallSickDay.setOnClickListener(this);
         imRequestSickday.setOnClickListener(this);
         tvCall911.setOnClickListener(this);
-        //address.setOnClickListener(this);
+
+        autoCompleteTextView.setTypeface(App.caecilia);
+        tvCall911.setTypeface(App.caecilia);
 
         return rootView;
     }
@@ -240,19 +242,11 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
     public void onClick(View v) {
         int id = v.getId();
 
-        if(id == tvCallSickDay.getId()){
-            Intent intent = new Intent(Intent.ACTION_CALL);
-            intent.setData(Uri.parse("tel:2127425329"));
-            startActivity(intent);
-        }else if(id == imRequestSickday.getId()){
+        if(id == imRequestSickday.getId()){
             requestSickday();
         }else if(id == tvCall911.getId()){
             call911Popup();
-        }/*else if(id == address.getId()){
-            Intent intent = new Intent(getActivity(), Address_Activity.class);
-            intent.putExtra("address", address.getText().toString());
-            startActivityForResult(intent, 10);
-        }*/
+        }
     }
 
     @Override
@@ -274,6 +268,11 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
 
         Button confirm = (Button) dialog911.findViewById(R.id.bSure);
         Button cancel = (Button) dialog911.findViewById(R.id.bCanel);
+        TextView areYouSure = (TextView) dialog911.findViewById(R.id.tvAreYouSure);
+
+        confirm.setTypeface(App.caecilia);
+        cancel.setTypeface(App.caecilia);
+        areYouSure.setTypeface(App.caecilia);
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -307,6 +306,14 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
         Button cancel = (Button) dialog.findViewById(R.id.bCanel);
         Button homeAddress = (Button) dialog.findViewById(R.id.bConfirmHome);
         Button workAddress = (Button) dialog.findViewById(R.id.bConfirmWork);
+        TextView areYouSureSickday = (TextView) dialog.findViewById(R.id.tvAreYouSureSickday);
+
+        confirm.setTypeface(App.caecilia);
+        cancel.setTypeface(App.caecilia);
+        homeAddress.setTypeface(App.caecilia);
+        workAddress.setTypeface(App.caecilia);
+        areYouSureSickday.setTypeface(App.caecilia);
+        
         final ParseUser user = ParseUser.getCurrentUser();
         if(user.get("home_street") == null){
             homeAddress.setVisibility(View.GONE);

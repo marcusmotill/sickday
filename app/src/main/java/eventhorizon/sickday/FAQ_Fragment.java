@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public class FAQ_Fragment extends Fragment {
     ExpandableListView expandableListView;
     ConditionsListViewAdapter expandableListAdapter;
     List expandableListTitle;
+    TextView FAQTitle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,9 +30,13 @@ public class FAQ_Fragment extends Fragment {
         HashMap expandableListDetail = getData();
 
         expandableListView = (ExpandableListView) rootView.findViewById(R.id.faqListView);
+        FAQTitle = (TextView) rootView.findViewById(R.id.tvFAQTitle);
+
         expandableListTitle = new ArrayList(expandableListDetail.keySet());
         expandableListAdapter = new ConditionsListViewAdapter(getActivity(), expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
+
+        FAQTitle.setTypeface(App.caecilia);
         return rootView;
     }
 

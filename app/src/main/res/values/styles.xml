@@ -6,13 +6,13 @@
         <item name="android:windowContentOverlay">@null</item>
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/MyActionBar</item>
-
     </style>
-
+    
+    
     <style name="MyActionBar"
         parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/sickday_blue</item>
-
+        <item name="android:title">null</item>
         <!-- Support library compatibility -->
         <item name="background">@color/sickday_blue</item>
     </style>
@@ -20,5 +20,6 @@
     <color name="sickday_blue">#5D8DB5</color>
     <color name="sickday_red">#A32626</color>
     <color name="facebook_blue">#31488B</color>
+    <color name="font_color_blue">#266092</color>
 
 </resources>

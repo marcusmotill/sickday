@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by marcusmotill on 4/10/15.
@@ -13,6 +16,11 @@ import android.view.ViewGroup;
 public class AboutUs_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.aboutus_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.aboutus_fragment, container, false);
+        TextView aboutUs = (TextView) rootView.findViewById(R.id.tvAboutUs);
+        TextView aboutUsTitle = (TextView) rootView.findViewById(R.id.tvAboutUsTitle);
+        aboutUs.setTypeface(App.caecilia);
+        aboutUsTitle.setTypeface(App.caecilia);
+        return rootView;
     }
 }

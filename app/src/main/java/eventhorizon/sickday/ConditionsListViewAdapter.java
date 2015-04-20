@@ -50,6 +50,7 @@ public class ConditionsListViewAdapter extends BaseExpandableListAdapter {
         AutoResizeTextView expandedListTextView = (AutoResizeTextView) convertView
                 .findViewById(R.id.conditionListItem);
         expandedListTextView.setText(expandedListText);
+        expandedListTextView.setTypeface(App.caecilia);
         return convertView;
     }
 
@@ -87,7 +88,7 @@ public class ConditionsListViewAdapter extends BaseExpandableListAdapter {
                 .findViewById(R.id.conditionGroup);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
         listTitleTextView.setText(listTitle);
-
+        listTitleTextView.setTypeface(App.caecilia);
         return convertView;
     }
 

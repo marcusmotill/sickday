@@ -25,21 +25,13 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
-            <ImageView
-                android:id="@+id/imLogo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_below="@+id/tvWelcome"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/logohq" />
-
             <RelativeLayout
                 android:id="@+id/contentLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/imLogo">
+                android:layout_below="@+id/tvWelcome">
 
                 <TextView
                     android:id="@+id/tvSickInCity"
@@ -60,31 +52,45 @@
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:id="@+id/imHome"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_below="@+id/tvMedicalHouseCalls"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/home_address_icon" />
+                    android:src="@drawable/home_address_icon"
+                    android:layout_below="@+id/tvHomeOfficeHotel"
+                    android:layout_alignLeft="@+id/tvHomeOfficeHotel"
+                    android:layout_alignStart="@+id/tvHomeOfficeHotel" />
 
                 <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:id="@+id/imOffice"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_below="@+id/tvMedicalHouseCalls"
-                    android:layout_margin="10dp"
-                    android:layout_toRightOf="@+id/imHome"
-                    android:src="@drawable/office_icon" />
+                    android:src="@drawable/office_icon"
+                    android:layout_below="@+id/tvHomeOfficeHotel"
+                    android:layout_alignRight="@+id/tvHomeOfficeHotel"
+                    android:layout_alignEnd="@+id/tvHomeOfficeHotel" />
 
                 <TextView
+                    android:layout_below="@+id/imLogo"
                     android:id="@+id/tvHomeOfficeHotel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imOffice"
-                    android:layout_toEndOf="@+id/imOffice"
-                    android:layout_toRightOf="@+id/imOffice"
                     android:text="@string/home_office_hotel"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+
+                <ImageView
+                    android:layout_below="@id/tvMedicalHouseCalls"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/imLogo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/logohq"
+                    />
             </RelativeLayout>
             <EditText
                 android:layout_below="@id/contentLayout"
