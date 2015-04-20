@@ -1,12 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
-    <item android:id="@+id/callSickday" android:title="Call Sickday"
+    <item android:id="@+id/callSickday" android:title=""
         android:icon="@drawable/ic_action_call"
         app:showAsAction="withText|ifRoom" />
 
-    <item android:id="@+id/share" android:title="Share"
-        android:icon="@drawable/logo_inverted"
+    <item android:id="@+id/share" android:title=""
+        android:icon="@drawable/logohq"
         app:showAsAction="withText|ifRoom" />
 
 
