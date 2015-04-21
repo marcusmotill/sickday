@@ -17,13 +17,13 @@ public class Splash_Screen extends Activity {
     private static int SPLASH_TIME_OUT = 4000;
     private Thread mSplashThread;
     ImageView logo;
-    TextView tvSickInCity, tvMedicalHouseCalls, tvHomeOfficeHotel, tvWarning;
+    //TextView tvSickInCity, tvMedicalHouseCalls, tvHomeOfficeHotel, tvWarning;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
 
-        tvSickInCity = (TextView) findViewById(R.id.tvSickInCity);
+        /*tvSickInCity = (TextView) findViewById(R.id.tvSickInCity);
         tvMedicalHouseCalls = (TextView) findViewById(R.id.tvMedicalHouseCalls);
         tvHomeOfficeHotel = (TextView) findViewById(R.id.tvHomeOfficeHotel);
         tvWarning = (TextView) findViewById(R.id.tvWarning);
@@ -31,7 +31,7 @@ public class Splash_Screen extends Activity {
         tvSickInCity.setTypeface(App.caecilia);
         tvMedicalHouseCalls.setTypeface(App.caecilia);
         tvHomeOfficeHotel.setTypeface(App.caecilia);
-        tvWarning.setTypeface(App.caecilia);
+        tvWarning.setTypeface(App.caecilia);*/
 
         logo = (ImageView) findViewById(R.id.splashLogo);
 

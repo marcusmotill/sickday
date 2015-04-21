@@ -34,13 +34,14 @@
         android:focusableInTouchMode="true">
 
         <AutoCompleteTextView
+            android:background="@color/sickday_blue"
             android:id="@+id/automcompleteView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:textColor="@color/font_color_blue"
+            android:textColor="@android:color/white"
             android:text="Address"
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textSize="30sp" />
@@ -63,30 +64,24 @@
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:src="@drawable/logohq" />
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+
+                android:src="@drawable/logohq"
+
+                android:layout_centerHorizontal="true" />
 
             <eventhorizon.sickday.AutoResizeTextView
+                android:layout_margin="10dp"
                 android:id="@+id/tvRequestSickDay"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:gravity="center"
-                android:maxLines="1"
-                android:padding="10dp"
                 android:text="@string/request_sickday"
                 android:textColor="@color/sickday_blue"
-                android:textSize="40sp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_toRightOf="@+id/imageView2"
-                android:layout_toEndOf="@+id/imageView2" />
+                android:maxLines="1"
+                android:textSize="50sp"
+                android:layout_below="@id/imageView2" />
         </RelativeLayout>
 
 
@@ -117,7 +112,7 @@
             android:padding="10dp"
             android:text="@string/call_911"
             android:textColor="@android:color/white"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:layout_toRightOf="@+id/imageView"
             android:layout_toEndOf="@+id/imageView" />
 

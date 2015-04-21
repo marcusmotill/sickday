@@ -73,7 +73,8 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
 
 
     static SupportMapFragment mapFragment;
-    AutoResizeTextView tvCall911, tvRequestSickday;
+    AutoResizeTextView tvCall911;
+    TextView tvRequestSickday;
     AutoCompleteTextView autoCompleteTextView;
     ImageView mapOverlay;
     RelativeLayout rRequestSickday, call911Layout;
@@ -92,7 +93,7 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
         autoCompleteTextView.setOnItemClickListener(this);
 
         tvCall911 = (AutoResizeTextView) rootView.findViewById(R.id.tvCall911);
-        tvRequestSickday = (AutoResizeTextView) rootView.findViewById(R.id.tvRequestSickDay);
+        tvRequestSickday = (TextView) rootView.findViewById(R.id.tvRequestSickDay);
         rRequestSickday = (RelativeLayout) rootView.findViewById(R.id.requestSickdayLayout);
         call911Layout = (RelativeLayout) rootView.findViewById(R.id.call911Layout);
         mapHolder = (FrameLayout) rootView.findViewById(R.id.mapFrame);

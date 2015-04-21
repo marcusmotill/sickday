@@ -46,6 +46,11 @@
 
             </android.support.v7.widget.Toolbar>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/sickday_blue"/>
+
         <!-- The rest of your content view -->
         <FrameLayout
             android:id="@+id/container"

@@ -5,9 +5,6 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-
-
-
     <ImageView
         android:scaleType="fitStart"
         android:id="@+id/splashlogowords"
@@ -19,11 +16,20 @@
         android:src="@drawable/sickday_logo_words" />
 
     <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/splash_image_new"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/tvWarning"
+        android:id="@+id/imageView3" />
+
+    <ImageView
         android:id="@+id/splashLogo"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/logohq"
-        android:layout_centerVertical="true"
+        android:layout_alignTop="@+id/imageView3"
         android:layout_centerHorizontal="true" />
 
     <eventhorizon.sickday.AutoResizeTextView
@@ -38,60 +44,9 @@
         android:textColor="@android:color/white"
         android:textSize="20dp" />
 
-    <RelativeLayout
-        android:id="@+id/contentLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvHomeOfficeHotel"
-        android:layout_alignLeft="@+id/tvHomeOfficeHotel"
-        android:layout_alignStart="@+id/tvHomeOfficeHotel"
-        android:layout_alignRight="@+id/tvHomeOfficeHotel"
-        android:layout_alignEnd="@+id/tvHomeOfficeHotel">
 
-        <ImageView
-            android:layout_marginTop="10dp"
-            android:id="@+id/imHome"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/home_address_icon"/>
 
-        <ImageView
-            android:layout_marginTop="10dp"
-            android:id="@+id/imOffice"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/office_icon"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
 
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tvSickInCity"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sick_in_city"
-        android:layout_above="@+id/tvMedicalHouseCalls"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/tvMedicalHouseCalls"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/medical_house_calls"
-        android:layout_above="@+id/splashLogo"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/tvHomeOfficeHotel"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/home_office_hotel"
-        android:layout_below="@+id/splashLogo"
-        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
