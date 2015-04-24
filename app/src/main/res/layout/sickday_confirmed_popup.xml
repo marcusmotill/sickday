@@ -4,6 +4,7 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:textColor="@color/font_color_blue"
         android:layout_margin="10dp"
         android:gravity="center"
         android:textAppearance="@android:style/TextAppearance.Large"

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class FAQ_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.faq_fragment, container, false);
 
-        HashMap expandableListDetail = getData();
+        LinkedHashMap expandableListDetail = getData();
 
         expandableListView = (ExpandableListView) rootView.findViewById(R.id.faqListView);
         FAQTitle = (TextView) rootView.findViewById(R.id.tvFAQTitle);
@@ -40,9 +41,9 @@ public class FAQ_Fragment extends Fragment {
         return rootView;
     }
 
-    public HashMap getData(){
+    public LinkedHashMap getData(){
 
-        HashMap expandableListDetail = new HashMap();
+        LinkedHashMap expandableListDetail = new LinkedHashMap();
 
 
         List items = new ArrayList();

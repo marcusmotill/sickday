@@ -132,11 +132,12 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
     }
 
     public static class ProfileBuilder_Fragment_1 extends Fragment implements View.OnClickListener {
-        static EditText tvFirstName;
-        static EditText tvLastName;
-        static EditText tvEmail;
-        static EditText tvPassword;
-        static EditText tvPhoneNumber;
+        static EditText etFirstName;
+        static EditText etLastName;
+        static EditText etEmail;
+        static EditText etPassword;
+        static EditText etPhoneNumber;
+        static EditText etDOB;
         static TextView bAddressHome;
         static TextView bAddressWork;
         static TextView tvIntro;
@@ -150,11 +151,12 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
             View rootView = inflater.inflate(R.layout.profilebuilder_fragment1, container, false);
 
             tvIntro = (TextView) rootView.findViewById(R.id.profilebuilderintro1);
-            tvFirstName = (EditText) rootView.findViewById(R.id.formFirstName);
-            tvLastName = (EditText) rootView.findViewById(R.id.formLastName);
-            tvEmail = (EditText) rootView.findViewById(R.id.formEmail);
-            tvPassword = (EditText) rootView.findViewById(R.id.formPassword);
-            tvPhoneNumber = (EditText) rootView.findViewById(R.id.formPhoneNumber);
+            etFirstName = (EditText) rootView.findViewById(R.id.formFirstName);
+            etLastName = (EditText) rootView.findViewById(R.id.formLastName);
+            etDOB = (EditText) rootView.findViewById(R.id.formDOB);
+            etEmail = (EditText) rootView.findViewById(R.id.formEmail);
+            etPassword = (EditText) rootView.findViewById(R.id.formPassword);
+            etPhoneNumber = (EditText) rootView.findViewById(R.id.formPhoneNumber);
             bAddressHome = (TextView) rootView.findViewById(R.id.bHomeAddress);
             bAddressWork = (TextView) rootView.findViewById(R.id.bWorkAddress);
 
@@ -162,13 +164,14 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
             bAddressWork.setOnClickListener(this);
 
             tvIntro.setTypeface(App.caecilia);
-            tvFirstName.setTypeface(App.caecilia);
-            tvLastName.setTypeface(App.caecilia);
-            tvEmail.setTypeface(App.caecilia);
-            tvPassword.setTypeface(App.caecilia);
-            tvPhoneNumber.setTypeface(App.caecilia);
+            etFirstName.setTypeface(App.caecilia);
+            etLastName.setTypeface(App.caecilia);
+            etEmail.setTypeface(App.caecilia);
+            etPassword.setTypeface(App.caecilia);
+            etPhoneNumber.setTypeface(App.caecilia);
             bAddressHome.setTypeface(App.caecilia);
             bAddressWork.setTypeface(App.caecilia);
+            etDOB.setTypeface(App.caecilia);
 
             user = new ParseUser();
 
@@ -232,13 +235,13 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                         stateString = state.getText().toString();
                         zipString = zip.getText().toString();
 
-                        user.put(address + "_street", streetString);
-                        user.put(address + "_city", cityString);
-                        user.put(address + "_state", stateString);
-                        user.put(address + "_zip", zipString);
-
-                        dialog.dismiss();
-
+                        user.put(address + "_street", streetString.trim());
+                        user.put(address + "_city", cityString.trim());
+                        user.put(address + "_state", stateString.trim());
+                        if(isInt(zipString.trim())){
+                            user.put(address + "_zip", zipString.trim());
+                            dialog.dismiss();
+                        }
                     }
 
                 }
@@ -259,18 +262,21 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
         }
 
         public static void addUser() {
-            if (isEmpty(tvFirstName) | isEmpty(tvLastName) | isEmpty(tvEmail) | isEmpty(tvPassword) | isEmpty(tvPhoneNumber)) {
+            if (isEmpty(etFirstName) | isEmpty(etLastName) | isEmpty(etEmail) | isEmpty(etPassword) | isEmpty(etPhoneNumber) | isEmpty(etDOB)) {
                 Toast.makeText(context, context.getString(R.string.profilebuilder_null_field), Toast.LENGTH_LONG).show();
-            } else if (tvPassword.getText().toString().length() < 6) {
+            } else if (etPassword.getText().toString().length() < 6) {
                 Toast.makeText(context, context.getString(R.string.password_length_error), Toast.LENGTH_LONG).show();
-            } else {
+            } else if(!etDOB.getText().toString().matches("[0-9][0-9]\\/[0-9][0-9]\\/[0-9][0-9][0-9][0-9]")) {
+                Toast.makeText(context, "Please put D.O.B. in the form MM/DD/YYYY", Toast.LENGTH_LONG).show();
+            }else{
 
-                user.setUsername(tvEmail.getText().toString());
-                user.setPassword(tvPassword.getText().toString());
-                user.setEmail(tvEmail.getText().toString());
-                user.put("firstname", tvFirstName.getText().toString());
-                user.put("lastname", tvLastName.getText().toString());
-                user.put("phoneNumber", tvPhoneNumber.getText().toString());
+                user.setUsername(etEmail.getText().toString());
+                user.setPassword(etPassword.getText().toString());
+                user.setEmail(etEmail.getText().toString());
+                user.put("firstname", etFirstName.getText().toString());
+                user.put("lastname", etLastName.getText().toString());
+                user.put("phoneNumber", etPhoneNumber.getText().toString());
+                user.put("dateOfBirth", etDOB.getText().toString());
 
                 final ProgressDialog dialog = ProgressDialog.show(context, "",
                         "Loading. Please wait...", true);
@@ -280,7 +286,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                     public void done(ParseException e) {
                         if (e == null) {
                             Log.i("User Sign up", "Success");
-                            ParseUser.logInInBackground(tvEmail.getText().toString(), tvPassword.getText().toString(), new LogInCallback() {
+                            ParseUser.logInInBackground(etEmail.getText().toString(), etPassword.getText().toString(), new LogInCallback() {
                                 public void done(ParseUser user, ParseException e) {
                                     if (user != null) {
                                         Log.i("User Login", "Success");
@@ -309,6 +315,20 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
 
         static boolean isEmpty(EditText etText) {
             return etText.getText().toString().trim().length() == 0;
+        }
+
+
+        public boolean isInt(String testString){
+            try{
+                Integer.parseInt(testString);
+            }catch (NumberFormatException e){
+                Toast.makeText(context, "Zip is not formatted correctly, only use numbers.", Toast.LENGTH_LONG).show();
+                return false;
+            }catch (NullPointerException e){
+                Toast.makeText(context, "Zip is not formatted correctly, only use numbers.", Toast.LENGTH_LONG).show();
+                return false;
+            }
+            return true;
         }
     }
 

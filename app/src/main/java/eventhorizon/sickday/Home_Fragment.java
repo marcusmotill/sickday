@@ -1,6 +1,7 @@
 package eventhorizon.sickday;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
@@ -40,7 +41,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -81,7 +86,9 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
     FrameLayout mapHolder;
     View rootView;
     String addressString;
+    String zipCode;
     static double lng, lat;
+    boolean zipSupported;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
@@ -165,6 +172,7 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
                         sb.append(address.getLocality()).append(", ");
                         sb.append(address.getAdminArea()).append(" ");
                         sb.append(address.getPostalCode());
+                        zipCode = address.getPostalCode();
                     }
 
                     addressString = sb.toString();
@@ -211,6 +219,7 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
                         sb.append(address.getLocality()).append(", ");
                         sb.append(address.getAdminArea()).append(" ");
                         sb.append(address.getPostalCode());
+                        zipCode = address.getPostalCode();
                     }
 
                     addressString = sb.toString();
@@ -222,10 +231,16 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
                     autoCompleteTextView.setText(getString(R.string.check_connection));
                 }
 
-                //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 13));
 
                 CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(currentPosition, 14);
                 googleMap.animateCamera(yourLocation);
+            }else {
+                if(googleMap.getMyLocation() != null){
+                    LatLng backUpLocation = new LatLng(googleMap.getMyLocation().getLatitude(), googleMap.getMyLocation().getLongitude());
+                    CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(backUpLocation, 14);
+                    googleMap.animateCamera(yourLocation);
+                }
+
             }
         }catch (NullPointerException e){
             e.printStackTrace();
@@ -327,98 +342,118 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
             workAddress.setVisibility(View.GONE);
         }
 
+
         homeAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Sickday_Request sickday_request = new Sickday_Request();
-                sickday_request.setUserName(ParseUser.getCurrentUser().getUsername());
-                sickday_request.setPendingRequest(true);
-                sickday_request.setUser(ParseUser.getCurrentUser());
-                sickday_request.setInsurance(ParseUser.getCurrentUser());
-                sickday_request.setAddress(user.get("home_street").toString()+ " " + user.get("home_city").toString() + " " + user.get("home_state").toString() + " " + user.get("home_zip").toString());
+                if(checkZip(user.get("home_zip").toString())){
+                    Sickday_Request sickday_request = new Sickday_Request();
+                    sickday_request.setUserName(ParseUser.getCurrentUser().getUsername());
+                    sickday_request.setPendingRequest(true);
+                    sickday_request.setUser(ParseUser.getCurrentUser());
+                    sickday_request.setInsurance(ParseUser.getCurrentUser());
+                    sickday_request.setAddress(user.get("home_street").toString()+ " " + user.get("home_city").toString() + " " + user.get("home_state").toString() + " " + user.get("home_zip").toString());
 
-                sickday_request.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if(e == null){
-                            Log.i("Pending Request", "Success");
-                        }else{
-                            Log.i("Pending Request", "Fail");
-                            e.printStackTrace();
+                    sickday_request.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if(e == null){
+                                Log.i("Pending Request", "Success");
+                            }else{
+                                Log.i("Pending Request", "Fail");
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                });
-                dialog.dismiss();
+                    });
+                    dialog.dismiss();
 
-                final Dialog confirmDialog;
-                confirmDialog = new Dialog(getActivity());
-                confirmDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                confirmDialog.setContentView(R.layout.sickday_confirmed_popup);
-                confirmDialog.setCancelable(true);
-                confirmDialog.show();
+                    final Dialog confirmDialog;
+                    confirmDialog = new Dialog(getActivity());
+                    confirmDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    confirmDialog.setContentView(R.layout.sickday_confirmed_popup);
+                    confirmDialog.setCancelable(true);
+                    confirmDialog.show();
+                }else{
+                    dialog.dismiss();
+                    requestLocationPopup(user.get("home_zip").toString());
+                }
+
             }
         });
 
         workAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Sickday_Request sickday_request = new Sickday_Request();
-                sickday_request.setUserName(ParseUser.getCurrentUser().getUsername());
-                sickday_request.setPendingRequest(true);
-                sickday_request.setUser(ParseUser.getCurrentUser());
-                sickday_request.setInsurance(ParseUser.getCurrentUser());
-                sickday_request.setAddress(user.get("work_street").toString()+ " " + user.get("work_city").toString() + " " + user.get("work_state").toString() + " " + user.get("work_zip").toString());
 
-                sickday_request.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if(e == null){
-                            Log.i("Pending Request", "Success");
-                        }else{
-                            Log.i("Pending Request", "Fail");
-                            e.printStackTrace();
+                if(checkZip(user.get("work_zip").toString())){
+                    Sickday_Request sickday_request = new Sickday_Request();
+                    sickday_request.setUserName(ParseUser.getCurrentUser().getUsername());
+                    sickday_request.setPendingRequest(true);
+                    sickday_request.setUser(ParseUser.getCurrentUser());
+                    sickday_request.setInsurance(ParseUser.getCurrentUser());
+                    sickday_request.setAddress(user.get("work_street").toString()+ " " + user.get("work_city").toString() + " " + user.get("work_state").toString() + " " + user.get("work_zip").toString());
+
+                    sickday_request.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if(e == null){
+                                Log.i("Pending Request", "Success");
+                            }else{
+                                Log.i("Pending Request", "Fail");
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                });
-                dialog.dismiss();
+                    });
+                    dialog.dismiss();
 
-                final Dialog confirmDialog;
-                confirmDialog = new Dialog(getActivity());
-                confirmDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                confirmDialog.setContentView(R.layout.sickday_confirmed_popup);
-                confirmDialog.setCancelable(true);
-                confirmDialog.show();
+                    final Dialog confirmDialog;
+                    confirmDialog = new Dialog(getActivity());
+                    confirmDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    confirmDialog.setContentView(R.layout.sickday_confirmed_popup);
+                    confirmDialog.setCancelable(true);
+                    confirmDialog.show();
+                }else{
+                    dialog.dismiss();
+                    requestLocationPopup(user.get("work_zip").toString());
+                }
+
             }
         });
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Sickday_Request sickday_request = new Sickday_Request();
-                sickday_request.setUserName(ParseUser.getCurrentUser().getUsername());
-                sickday_request.setPendingRequest(true);
-                sickday_request.setUser(ParseUser.getCurrentUser());
-                sickday_request.setInsurance(ParseUser.getCurrentUser());
-                sickday_request.setAddress(addressString);
+                if(checkZip(zipCode)){
+                    Sickday_Request sickday_request = new Sickday_Request();
+                    sickday_request.setUserName(ParseUser.getCurrentUser().getUsername());
+                    sickday_request.setPendingRequest(true);
+                    sickday_request.setUser(ParseUser.getCurrentUser());
+                    sickday_request.setInsurance(ParseUser.getCurrentUser());
+                    sickday_request.setAddress(addressString);
 
-                sickday_request.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if(e == null){
-                            Log.i("Pending Request", "Success");
-                        }else{
-                            Log.i("Pending Request", "Fail");
-                            e.printStackTrace();
+                    sickday_request.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if(e == null){
+                                Log.i("Pending Request", "Success");
+                            }else{
+                                Log.i("Pending Request", "Fail");
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                });
-                dialog.dismiss();
+                    });
+                    dialog.dismiss();
 
-                final Dialog confirmDialog;
-                confirmDialog = new Dialog(getActivity());
-                confirmDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                confirmDialog.setContentView(R.layout.sickday_confirmed_popup);
-                confirmDialog.setCancelable(true);
-                confirmDialog.show();
+                    final Dialog confirmDialog;
+                    confirmDialog = new Dialog(getActivity());
+                    confirmDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    confirmDialog.setContentView(R.layout.sickday_confirmed_popup);
+                    confirmDialog.setCancelable(true);
+                    confirmDialog.show();
+                }else{
+                    dialog.dismiss();
+                    requestLocationPopup(zipCode);
+                }
+
             }
         });
 
@@ -432,6 +467,74 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
         dialog.show();
     }
 
+    public boolean checkZip(String zipCodeRequest){
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("locations_supported");
+        query.whereEqualTo("zipCode", Integer.parseInt(zipCodeRequest.trim()));
+        ParseObject zipObject = null;
+        try {
+            zipObject = query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (zipObject == null) {
+            Log.d("zip", "The getFirst request failed.");
+            zipSupported = false;
+        } else {
+            Log.d("zip", "Retrieved the object.");
+            zipSupported = true;
+        }
+
+        return zipSupported;
+    }
+
+    public void requestLocationPopup(final String zipCodeRequest){
+        final Dialog dialog;
+        dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.location_request_popup);
+        dialog.setCancelable(false);
+
+        final Button confirm = (Button) dialog.findViewById(R.id.bConfirmLocationRequest);
+        Button cancel = (Button) dialog.findViewById(R.id.bCancelLocationRequest);
+        TextView textView = (TextView) dialog.findViewById(R.id.tvLocationNotSupported);
+
+        confirm.setTypeface(App.caecilia);
+        cancel.setTypeface(App.caecilia);
+        textView.setTypeface(App.caecilia);
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Location_Request location_request = new Location_Request();
+                location_request.setZipCode(zipCodeRequest);
+
+                location_request.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e == null){
+                            Log.i("Pending Request", "Success");
+                        }else{
+                            Log.i("Pending Request", "Fail");
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                dialog.dismiss();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -40,9 +40,11 @@
                 android:id="@+id/toolbarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sickday"
+                android:text="sickday"
                 android:textColor="@color/sickday_blue"
                 />
+
+
 
             </android.support.v7.widget.Toolbar>
 

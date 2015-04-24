@@ -19,17 +19,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/splash_image_new"
+        android:id="@+id/imageView3"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/tvWarning"
-        android:id="@+id/imageView3" />
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:id="@+id/splashLogo"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/logohq"
-        android:layout_alignTop="@+id/imageView3"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <eventhorizon.sickday.AutoResizeTextView

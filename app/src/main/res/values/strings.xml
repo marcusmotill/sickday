@@ -45,4 +45,6 @@
     <string name="confirm_logoff">Are you sure you want to log out?</string>
     <string name="yes_logoff">Yes, log off</string>
     <string name="disclaimer">The Content of this app is not intended to be a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.\n\n\nIf you think you may have a medical emergency, call your doctor or 911 immediately.\n\n\nYou agree to defend, indemnify, and hold Sickday, its officers, directors, employees, agents, licensors, and suppliers, harmless from and against any claims, actions or demands, liabilities and settlements including without limitation, reasonable legal and accounting fees, resulting from, or alleged to result from incorrectly using this service.</string>
+    <string name="location_not_supported">Your current location is not support yet by sickday.  If you click the "Request this Location" button below, we will get an email regarding your desire to expand sickday.</string>
+    <string name="request_location">Request this Location</string>
 </resources>

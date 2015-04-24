@@ -42,6 +42,7 @@
         android:textColorHint="@android:color/white" />
 
     <EditText
+        android:maxLength="5"
         android:inputType="number"
         android:textCursorDrawable="@null"
         android:id="@+id/addressZip"

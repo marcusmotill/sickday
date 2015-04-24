@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:textColor="@color/font_color_blue"
         android:layout_margin="10dp"
         android:id="@+id/tvAreYouSure"
         android:layout_width="match_parent"

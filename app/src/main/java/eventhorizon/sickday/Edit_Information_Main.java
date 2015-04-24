@@ -8,7 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,9 +87,12 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
                 Edit_Profile_Fragment.toggleEditTexts();
                 bEditProfile.setText(getString(R.string.save));
             } else if (bEditProfile.getText().equals(getString(R.string.save))) {
-                Edit_Profile_Fragment.toggleEditTexts();
-                bEditProfile.setText(getString(R.string.edit_profile));
-                Edit_Profile_Fragment.updateProfile();
+                if(Edit_Profile_Fragment.checkFormat()){
+                    Edit_Profile_Fragment.toggleEditTexts();
+                    bEditProfile.setText(getString(R.string.edit_profile));
+                    Edit_Profile_Fragment.updateProfile();
+                }
+
             }
         } else if (id == bEditInsurance.getId()) {
             if (bEditInsurance.getText().equals(getString(R.string.edit_view_insurance))) {
@@ -163,6 +169,7 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
         static EditText etFirstName;
         static EditText etLastName;
         static EditText etPhone;
+        static EditText etDOB;
         static ParseUser user;
         static ProgressDialog dialog;
         static TextView bAddressHome;
@@ -170,6 +177,7 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
         static TextView tvFirstName;
         static TextView tvLastName;
         static TextView tvPhone;
+        static TextView tvDOB;
 
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -178,9 +186,11 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
             etFirstName = (EditText) rootView.findViewById(R.id.etInsuranceInformationFirstName);
             etLastName = (EditText) rootView.findViewById(R.id.etInsuranceInformationLastName);
             etPhone = (EditText) rootView.findViewById(R.id.etInsuranceInformationPhone);
+            etDOB = (EditText) rootView.findViewById(R.id.etInsuranceInformationDOB);
             tvFirstName = (TextView) rootView.findViewById(R.id.tvFirstNameLabel);
             tvLastName = (TextView) rootView.findViewById(R.id.tvLastNameLabel);
             tvPhone = (TextView) rootView.findViewById(R.id.tvPhoneLabel);
+            tvDOB = (TextView) rootView.findViewById(R.id.tvDOBLabel);
             bAddressHome = (TextView) rootView.findViewById(R.id.bHomeAddressEdit);
             bAddressWork = (TextView) rootView.findViewById(R.id.bWorkAddressEdit);
 
@@ -190,9 +200,11 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
             etFirstName.setTypeface(App.caecilia);
             etLastName.setTypeface(App.caecilia);
             etPhone.setTypeface(App.caecilia);
+            etDOB.setTypeface(App.caecilia);
             tvFirstName.setTypeface(App.caecilia);
             tvLastName.setTypeface(App.caecilia);
             tvPhone.setTypeface(App.caecilia);
+            tvDOB.setTypeface(App.caecilia);
             bAddressHome.setTypeface(App.caecilia);
             bAddressWork.setTypeface(App.caecilia);
 
@@ -249,19 +261,23 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
                     if(isEmpty(street) | isEmpty(city) | isEmpty(state) | isEmpty(zip)){
                         Toast.makeText(context, context.getString(R.string.profilebuilder_null_field), Toast.LENGTH_LONG).show();
                     }else {
-                        bEditProfile.setText(getString(R.string.save));
+
                         String streetString, cityString, stateString, zipString;
                         streetString = street.getText().toString();
                         cityString = city.getText().toString();
                         stateString = state.getText().toString();
                         zipString = zip.getText().toString();
 
-                        user.put(address + "_street", streetString);
-                        user.put(address + "_city", cityString);
-                        user.put(address + "_state", stateString);
-                        user.put(address + "_zip", zipString);
+                        user.put(address + "_street", streetString.trim());
+                        user.put(address + "_city", cityString.trim());
+                        user.put(address + "_state", stateString.trim());
+                        user.put(address + "_zip", zipString.trim());
+                        if(isInt(zipString.trim())){
+                            bEditProfile.setText(getString(R.string.save));
+                            user.put(address + "_zip", zipString.trim());
+                            dialog.dismiss();
+                        }
 
-                        dialog.dismiss();
                     }
 
 
@@ -278,12 +294,26 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
             dialog.show();
         }
 
+        public boolean isInt(String testString){
+            try{
+                Integer.parseInt(testString);
+            }catch (NumberFormatException e){
+                Toast.makeText(context, "Zip is not formatted correctly, only use numbers.", Toast.LENGTH_LONG).show();
+                return false;
+            }catch (NullPointerException e){
+                Toast.makeText(context, "Zip is not formatted correctly, only use numbers.", Toast.LENGTH_LONG).show();
+                return false;
+            }
+            return true;
+        }
+
         private void init() {
             user = ParseUser.getCurrentUser();
             if (user != null) {
                 etFirstName.setText(user.get("firstname").toString());
                 etLastName.setText(user.get("lastname").toString());
                 etPhone.setText(user.get("phoneNumber").toString());
+                etDOB.setText(user.get("dateOfBirth").toString());
             }
         }
 
@@ -296,10 +326,12 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
                 etFirstName.setEnabled(false);
                 etLastName.setEnabled(false);
                 etPhone.setEnabled(false);
+                etDOB.setEnabled(false);
             } else {
                 etFirstName.setEnabled(true);
                 etLastName.setEnabled(true);
                 etPhone.setEnabled(true);
+                etDOB.setEnabled(true);
             }
         }
 
@@ -307,6 +339,7 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
             user.put("firstname", etFirstName.getText().toString());
             user.put("lastname", etLastName.getText().toString());
             user.put("phoneNumber", etPhone.getText().toString());
+            user.put("dateOfBirth", etDOB.getText().toString());
             user.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
@@ -316,11 +349,22 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
                     }
                 }
             });
-
             dialog = ProgressDialog.show(context, "",
                     "Loading. Please wait...", true);
             dialog.setIndeterminate(true);
+        }
 
+        public static boolean checkFormat() {
+
+            if(isEmpty(etFirstName) | isEmpty(etLastName) | isEmpty(etPhone) | isEmpty(etDOB)){
+                Toast.makeText(context, context.getString(R.string.profilebuilder_null_field), Toast.LENGTH_LONG).show();
+                return false;
+            }else if(!etDOB.getText().toString().matches("[0-9][0-9]\\/[0-9][0-9]\\/[0-9][0-9][0-9][0-9]")){
+                Toast.makeText(context, "Please put D.O.B. in the form MM/DD/YYYY", Toast.LENGTH_LONG).show();
+                return false;
+            }else{
+                return true;
+            }
 
         }
     }

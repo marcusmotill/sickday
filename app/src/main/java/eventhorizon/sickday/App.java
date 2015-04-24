@@ -20,6 +20,7 @@ public class App extends Application {
         ParseCrashReporting.enable(this);
         ParseObject.registerSubclass(Insurance_Information.class);
         ParseObject.registerSubclass(Sickday_Request.class);
+        ParseObject.registerSubclass(Location_Request.class);
         Parse.initialize(this, "RzJTYueCw9qRWNWCwsQbHBjvZkmau4PbUco1pY1S", "OfNHqBlcE01sjKdyiGqjNZrJMAnoWBB3TpiaxjMv");
 
         caecilia = Typeface.createFromAsset(getAssets(), "CaeciliaLTStd-Light.otf");

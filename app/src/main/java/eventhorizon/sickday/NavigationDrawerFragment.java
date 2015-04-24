@@ -455,7 +455,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
             listIcons = new int[]{
                     R.drawable.home_icon,
-                    R.drawable.insurance_info_icon};
+                    R.drawable.user};
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = inflater.inflate(R.layout.navigationdrawer_row, parent, false);
@@ -472,9 +472,10 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                 listViewHeight += lp.height; //adds the padding
                 lp.setMargins(dpToPx(10), dpToPx(10), dpToPx(10), dpToPx(10));
             } else if (position == 1) {
-                height = dpToPx(43);
+                height = dpToPx(40);
+                width = dpToPx(40);
                 listViewHeight += 20; //adds the padding
-                lp.setMargins(dpToPx(10), dpToPx(10), dpToPx(10), dpToPx(10));
+                lp.setMargins(dpToPx(20), dpToPx(10), dpToPx(20), dpToPx(10));
             } else if (position == 2) {
                 height = dpToPx(40);
                 width = dpToPx(40);
