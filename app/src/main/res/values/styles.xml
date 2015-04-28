@@ -21,5 +21,6 @@
     <color name="sickday_red">#A32626</color>
     <color name="facebook_blue">#31488B</color>
     <color name="font_color_blue">#266092</color>
+    <color name="sickday_grey">#C4C4C5</color>
 
 </resources>

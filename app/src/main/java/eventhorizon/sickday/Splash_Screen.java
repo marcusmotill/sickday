@@ -32,7 +32,8 @@ public class Splash_Screen extends Activity {
         tvMedicalHouseCalls.setTypeface(App.caecilia);
         tvHomeOfficeHotel.setTypeface(App.caecilia);
         tvWarning.setTypeface(App.caecilia);*/
-
+        AutoResizeTextView disclaimer = (AutoResizeTextView) findViewById(R.id.tvWarning);
+        disclaimer.setTypeface(App.caecilia);
         logo = (ImageView) findViewById(R.id.splashLogo);
 
         logo.animate().rotationY(1080).setDuration(SPLASH_TIME_OUT).setInterpolator(new LinearInterpolator()).start();

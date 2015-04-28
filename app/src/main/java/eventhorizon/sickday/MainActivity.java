@@ -39,6 +39,8 @@ public class MainActivity extends ActionBarActivity
 
         TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbarTitle);
         toolbarTitle.setTypeface(App.bodoni);
+        TextView toobarSubTitle = (TextView) toolbar.findViewById(R.id.toolbarSubTitle);
+        toobarSubTitle.setTypeface(App.caecilia);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
