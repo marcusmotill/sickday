@@ -91,7 +91,7 @@
         android:id="@+id/call911Layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#99A32626"
+        android:background="#A32626"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">

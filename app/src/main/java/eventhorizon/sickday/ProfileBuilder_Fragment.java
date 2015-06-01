@@ -1,5 +1,6 @@
 package eventhorizon.sickday;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +30,10 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -137,12 +144,13 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
         static EditText etEmail;
         static EditText etPassword;
         static EditText etPhoneNumber;
-        static EditText etDOB;
+        static Button bDOB;
         static TextView bAddressHome;
         static TextView bAddressWork;
         static TextView tvIntro;
 
         String streetString, cityString, stateString, zipString;
+        String workStreet, workCity, workState, workZip;
         static ParseUser user;
 
 
@@ -153,7 +161,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
             tvIntro = (TextView) rootView.findViewById(R.id.profilebuilderintro1);
             etFirstName = (EditText) rootView.findViewById(R.id.formFirstName);
             etLastName = (EditText) rootView.findViewById(R.id.formLastName);
-            etDOB = (EditText) rootView.findViewById(R.id.formDOB);
+            bDOB = (Button) rootView.findViewById(R.id.formDOB);
             etEmail = (EditText) rootView.findViewById(R.id.formEmail);
             etPassword = (EditText) rootView.findViewById(R.id.formPassword);
             etPhoneNumber = (EditText) rootView.findViewById(R.id.formPhoneNumber);
@@ -162,6 +170,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
 
             bAddressHome.setOnClickListener(this);
             bAddressWork.setOnClickListener(this);
+            bDOB.setOnClickListener(this);
 
             tvIntro.setTypeface(App.caecilia);
             etFirstName.setTypeface(App.caecilia);
@@ -171,7 +180,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
             etPhoneNumber.setTypeface(App.caecilia);
             bAddressHome.setTypeface(App.caecilia);
             bAddressWork.setTypeface(App.caecilia);
-            etDOB.setTypeface(App.caecilia);
+            bDOB.setTypeface(App.caecilia);
 
             user = new ParseUser();
 
@@ -186,12 +195,43 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                 addAddress("home");
             } else if (id == bAddressWork.getId()) {
                 addAddress("work");
+            } else if (id == bDOB.getId()){
+                showDatePicker();
+            }
+        }
+
+        private void showDatePicker() {
+            int defaultDay = 1;
+            int defaultMonth = 0;
+            int defaultYear = 1980;
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+            Date birthDay;
+            Calendar birthdayCalendar = new GregorianCalendar();
+            try {
+                birthDay = simpleDateFormat.parse(bDOB.getText().toString());
+                birthdayCalendar.setTime(birthDay);
+                defaultDay = birthdayCalendar.get(Calendar.DAY_OF_MONTH);
+                defaultMonth = birthdayCalendar.get(Calendar.MONTH);
+                defaultYear = birthdayCalendar.get(Calendar.YEAR);
+            } catch (java.text.ParseException e) {
+                e.printStackTrace();
             }
 
 
+            DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    bDOB.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
+                }
+            }, defaultYear, defaultMonth, defaultDay);
+
+
+            datePickerDialog.show();
         }
 
         private void addAddress(final String address) {
+
             final Dialog dialog;
             dialog = new Dialog(getActivity());
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -212,17 +252,33 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
             state.setTypeface(App.caecilia);
             zip.setTypeface(App.caecilia);
 
-            if(streetString != null | cityString != null | stateString != null | zipString != null){
-                try{
-                    street.setText(streetString);
-                    city.setText(cityString);
-                    state.setText(stateString);
-                    zip.setText(zipString);
-                }catch (NullPointerException e){
-                    e.printStackTrace();
-                }
+            if(address.equals("work")){
+                if(workStreet != null | workCity != null | workState != null | workZip != null){
+                    try{
+                        street.setText(workStreet);
+                        city.setText(workCity);
+                        state.setText(workState);
+                        zip.setText(workZip);
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
 
+                }
+            }else {
+                if(streetString != null | cityString != null | stateString != null | zipString != null){
+                    try{
+                        street.setText(streetString);
+                        city.setText(cityString);
+                        state.setText(stateString);
+                        zip.setText(zipString);
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
+
+                }
             }
+
+
 
             confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -230,18 +286,35 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                     if(isEmpty(street) | isEmpty(city) | isEmpty(state) | isEmpty(zip)){
                         Toast.makeText(context, context.getString(R.string.profilebuilder_null_field), Toast.LENGTH_LONG).show();
                     }else{
-                        streetString = street.getText().toString();
-                        cityString = city.getText().toString();
-                        stateString = state.getText().toString();
-                        zipString = zip.getText().toString();
 
-                        user.put(address + "_street", streetString.trim());
-                        user.put(address + "_city", cityString.trim());
-                        user.put(address + "_state", stateString.trim());
-                        if(isInt(zipString.trim())){
-                            user.put(address + "_zip", zipString.trim());
-                            dialog.dismiss();
+                        if(address.equals("work")){
+                            workStreet = street.getText().toString();
+                            workCity = city.getText().toString();
+                            workState = state.getText().toString();
+                            workZip = zip.getText().toString();
+
+                            user.put(address + "_street", workStreet.trim());
+                            user.put(address + "_city", workCity.trim());
+                            user.put(address + "_state", workState.trim());
+                            if(isInt(workZip.trim())){
+                                user.put(address + "_zip", workZip.trim());
+                                dialog.dismiss();
+                            }
+                        }else {
+                            streetString = street.getText().toString();
+                            cityString = city.getText().toString();
+                            stateString = state.getText().toString();
+                            zipString = zip.getText().toString();
+
+                            user.put(address + "_street", streetString.trim());
+                            user.put(address + "_city", cityString.trim());
+                            user.put(address + "_state", stateString.trim());
+                            if(isInt(zipString.trim())){
+                                user.put(address + "_zip", zipString.trim());
+                                dialog.dismiss();
+                            }
                         }
+
                     }
 
                 }
@@ -250,11 +323,19 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
             cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    streetString = street.getText().toString();
-                    cityString = city.getText().toString();
-                    stateString = state.getText().toString();
-                    zipString = zip.getText().toString();
-                    dialog.dismiss();
+                    if(address.equals("work")){
+                        workStreet = street.getText().toString();
+                        workCity = city.getText().toString();
+                        workState = state.getText().toString();
+                        workZip = zip.getText().toString();
+                        dialog.dismiss();
+                    }else {
+                        streetString = street.getText().toString();
+                        cityString = city.getText().toString();
+                        stateString = state.getText().toString();
+                        zipString = zip.getText().toString();
+                        dialog.dismiss();
+                    }
                 }
             });
 
@@ -262,12 +343,12 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
         }
 
         public static void addUser() {
-            if (isEmpty(etFirstName) | isEmpty(etLastName) | isEmpty(etEmail) | isEmpty(etPassword) | isEmpty(etPhoneNumber) | isEmpty(etDOB)) {
+            if (isEmpty(etFirstName) | isEmpty(etLastName) | isEmpty(etEmail) | isEmpty(etPassword) | isEmpty(etPhoneNumber)) {
                 Toast.makeText(context, context.getString(R.string.profilebuilder_null_field), Toast.LENGTH_LONG).show();
             } else if (etPassword.getText().toString().length() < 6) {
                 Toast.makeText(context, context.getString(R.string.password_length_error), Toast.LENGTH_LONG).show();
-            } else if(!etDOB.getText().toString().matches("[0-9][0-9]\\/[0-9][0-9]\\/[0-9][0-9][0-9][0-9]")) {
-                Toast.makeText(context, "Please put D.O.B. in the form MM/DD/YYYY", Toast.LENGTH_LONG).show();
+            } else if (bDOB.getText().equals("Date of Birth MM/DD/YYYY")) {
+                Toast.makeText(context, context.getString(R.string.profilebuilder_null_field), Toast.LENGTH_LONG).show();
             }else{
 
                 user.setUsername(etEmail.getText().toString());
@@ -276,7 +357,7 @@ public class ProfileBuilder_Fragment extends Fragment implements View.OnClickLis
                 user.put("firstname", etFirstName.getText().toString());
                 user.put("lastname", etLastName.getText().toString());
                 user.put("phoneNumber", etPhoneNumber.getText().toString());
-                user.put("dateOfBirth", etDOB.getText().toString());
+                user.put("dateOfBirth", bDOB.getText().toString());
 
                 final ProgressDialog dialog = ProgressDialog.show(context, "",
                         "Loading. Please wait...", true);

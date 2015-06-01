@@ -51,11 +51,11 @@ public class FAQ_Fragment extends Fragment {
         items.add("According to The New York Times, the average cost of a house call in 2013 \"is around $500 a visit.\" Some services charge nearly $700. We charge just $275, and it’s reimbursed by most insurance providers.");
         items.add("Within 60–90 minutes of your call, we’re at your door.");
         items.add("The next day we check back with you to see how you’re doing and answer any additional follow-up questions you may have.");
-        expandableListDetail.put("What makes Sickday different?", items);
+        expandableListDetail.put("What makes sickday different?", items);
 
         items = new ArrayList();
         items.add("No, but we’ll be at your door within 60–90 minutes. Just call us at \n" +
-                "(212) SICKDAY about an hour before you want to see us.");
+                "(212) sickday about an hour before you want to see us.");
         expandableListDetail.put("Do you take appointments?", items);
 
         items = new ArrayList();
@@ -76,15 +76,15 @@ public class FAQ_Fragment extends Fragment {
 
         items = new ArrayList();
         items.add("If you’re having a medical emergency, please stop reading this and go directly to the emergency room or dial 911.");
-        items.add("Sickday isn’t an emergency room replacement and we don’t treat patients experiencing chest pains, shortness of breath, or head trauma—these are serious conditions that may require immediate hospitalization");
-        expandableListDetail.put("Should I call Sickday in an emergency?", items);
+        items.add("sickday isn’t an emergency room replacement and we don’t treat patients experiencing chest pains, shortness of breath, or head trauma—these are serious conditions that may require immediate hospitalization");
+        expandableListDetail.put("Should I call sickday in an emergency?", items);
 
         items = new ArrayList();
         items.add("We’re available 7 days a week; call us anytime from 6am–11pm Eastern Time");
-        expandableListDetail.put("Is Sickday always available?", items);
+        expandableListDetail.put("Is sickday always available?", items);
 
         items = new ArrayList();
-        items.add("Call Sickday at (212) 742-5329 between 6am-11pm Eastern Time");
+        items.add("Call sickday at (212) 742-5329 between 6am-11pm Eastern Time");
         expandableListDetail.put("What should I do if I am having trouble using the app?", items);
 
         return expandableListDetail;

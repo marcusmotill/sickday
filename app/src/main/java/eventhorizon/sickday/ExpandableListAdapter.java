@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -88,7 +89,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.list_group, null);
         }
-        AutoResizeTextView listTitleTextView = (AutoResizeTextView) convertView
+        TextView listTitleTextView = (TextView) convertView
                 .findViewById(R.id.listTitle);
         listTitleTextView.setTypeface(App.caecilia);
         listTitleTextView.setText(listTitle);

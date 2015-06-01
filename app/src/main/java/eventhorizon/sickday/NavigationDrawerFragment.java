@@ -148,7 +148,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         profileHeader = (RelativeLayout) mainDrawer.findViewById(R.id.profileHolder);
         parentView = (RelativeLayout) mainDrawer.findViewById(R.id.menuParent);
 
-        mDrawerListView.getLayoutParams().height = dpToPx(123);
+        mDrawerListView.getLayoutParams().height = dpToPx(150);
 
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -160,12 +160,12 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         HashMap expandableListDetail = new HashMap();
 
         List menuItems = new ArrayList();
-        menuItems.add("About us");
+        menuItems.add("About Us");
         menuItems.add("Help/FAQs");
-        menuItems.add("Conditions we treat");
+        menuItems.add("Conditions We Treat");
         menuItems.add("Disclaimer");
 
-        expandableListDetail.put("More Information", menuItems);
+        expandableListDetail.put("More Info", menuItems);
 
         expandableListView = (ExpandableListView) mainDrawer.findViewById(R.id.expandable_menu);
         expandableListTitle = new ArrayList(expandableListDetail.keySet());
@@ -173,7 +173,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         expandableListView.setAdapter(expandableListAdapter);
         expandableListView.setGroupIndicator(null);
 
-        expandableListView.getLayoutParams().height = screenHeight - profileHeader.getLayoutParams().height - mDrawerListView.getLayoutParams().height - tvlogOff.getLayoutParams().height;
+        expandableListView.getLayoutParams().height = screenHeight - profileHeader.getLayoutParams().height - mDrawerListView.getLayoutParams().height;
 
 
         Log.i("Scroll Height", "" + menuScroll.getLayoutParams().height);
@@ -455,7 +455,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
             listIcons = new int[]{
                     R.drawable.home_icon,
-                    R.drawable.user};
+                    R.drawable.profile_icon};
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = inflater.inflate(R.layout.navigationdrawer_row, parent, false);
@@ -472,10 +472,10 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                 listViewHeight += lp.height; //adds the padding
                 lp.setMargins(dpToPx(10), dpToPx(10), dpToPx(10), dpToPx(10));
             } else if (position == 1) {
-                height = dpToPx(40);
-                width = dpToPx(40);
+                height = dpToPx(30);
+                width = dpToPx(34);
                 listViewHeight += 20; //adds the padding
-                lp.setMargins(dpToPx(20), dpToPx(10), dpToPx(20), dpToPx(10));
+                lp.setMargins(dpToPx(23), dpToPx(10), dpToPx(23), dpToPx(10));
             } else if (position == 2) {
                 height = dpToPx(40);
                 width = dpToPx(40);

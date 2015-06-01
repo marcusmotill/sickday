@@ -1,18 +1,18 @@
 <resources>
-    <string name="app_name">Sickday</string>
+    <string name="app_name">sickday</string>
 
     <string name="home_menu_item">Home</string>
     <string name="profile_menu_item">Profile</string>
     <string name="help_menu_item">Help</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="share_sickday">Share Sickday</string>
+    <string name="share_sickday">Share sickday</string>
     <string name="home_fragment_warning">If you have chest pain, shortness of breath, head trauma, or have loss of consciousness, go directly to an E.R. or call 911.</string>
-    <string name="call_sickday">Call Sickday</string>
+    <string name="call_sickday">Call sickday</string>
     <string name="call_911">Call 911</string>
-    <string name="request_sickday">Request Sickday Visit</string>
+    <string name="request_sickday">Request sickday Visit</string>
     <string name="check_connection">Please check your connection and try again</string>
-    <string name="profilebuilder_intro">We need to get some information from before we can visit you...anywhere!</string>
+    <string name="profilebuilder_intro">We need to get some information from before we can visit you…anywhere!</string>
     <string name="profilebuilder_first_name">First Name</string>
     <string name="profilebuilder_last_name">Last Name</string>
     <string name="profilebuilder_next_page">Next</string>
@@ -22,11 +22,11 @@
     <string name="profilebuilder_insurance_name">Insurance Name</string>
     <string name="profilebuilder_null_field">All fields are required</string>
     <string name="profilebuilder_phonenumber">Phone</string>
-    <string name="welcome_message">Welcome to Sickday, please log in</string>
+    <string name="welcome_message">Welcome to sickday, please log in</string>
     <string name="log_in">Log In</string>
     <string name="incorrect_login">The information you supplied is not correct, try again.</string>
     <string name="sign_up">Sign Up</string>
-    <string name="sign_up_success">Congratulations!  You are now registered with Sickday!</string>
+    <string name="sign_up_success">Congratulations!  You are now registered with sickday!</string>
     <string name="done">Done</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="edit_view_insurance">Edit or View Insurance Information</string>
@@ -34,17 +34,17 @@
     <string name="login_popup_text">To view or edit insurance information please re-enter your password.</string>
     <string name="cancel">Cancel</string>
     <string name="are_you_sure_911">Are you sure you want to call 911?</string>
-    <string name="are_you_sure">Are you sure you want to request a Sickday visit?</string>
+    <string name="are_you_sure">Are you sure you want to request a sickday visit?</string>
     <string name="yes_sure">Yes, call 911</string>
-    <string name="yes_request">Yes, request Sickday visit</string>
-    <string name="sickday_confirmed">Your Sickday is confirmed, expect a phone call from us within 5 minutes!</string>
+    <string name="yes_request">Yes, request sickday visit</string>
+    <string name="sickday_confirmed">Your sickday is confirmed, expect a phone call from us within 5 minutes!</string>
     <string name="sick_in_city">Sick in the city?</string>
     <string name="medical_house_calls">Medical House Calls</string>
     <string name="home_office_hotel">Home, Office, or Hotel</string>
     <string name="log_out">Log Out</string>
     <string name="confirm_logoff">Are you sure you want to log out?</string>
     <string name="yes_logoff">Yes, log off</string>
-    <string name="disclaimer">The Content of this app is not intended to be a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.\n\n\nIf you think you may have a medical emergency, call your doctor or 911 immediately.\n\n\nYou agree to defend, indemnify, and hold Sickday, its officers, directors, employees, agents, licensors, and suppliers, harmless from and against any claims, actions or demands, liabilities and settlements including without limitation, reasonable legal and accounting fees, resulting from, or alleged to result from incorrectly using this service.</string>
-    <string name="location_not_supported">Your current location is not support yet by sickday.  If you click the "Request this Location" button below, we will get an email regarding your desire to expand sickday.</string>
+    <string name="disclaimer">The Content of this app is not intended to be a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.\n\n\nIf you think you may have a medical emergency, call your doctor or 911 immediately.\n\n\nYou agree to defend, indemnify, and hold sickday, its officers, directors, employees, agents, licensors, and suppliers, harmless from and against any claims, actions or demands, liabilities and settlements including without limitation, reasonable legal and accounting fees, resulting from, or alleged to result from incorrectly using this service.</string>
+    <string name="location_not_supported">Your current location is not support yet by sickday.  If you click the \"Request this Location\" button below, we will get an email regarding your desire to expand sickday.</string>
     <string name="request_location">Request this Location</string>
 </resources>

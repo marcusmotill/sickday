@@ -2,33 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvAboutUsTitle"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:textAppearance="@android:style/TextAppearance.Large"
-        android:textColor="@color/sickday_blue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="About Us"/>
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="About Us"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@color/sickday_blue" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/sickday_blue"/>
+        android:background="@color/sickday_blue" />
 
-    <TextView
-        android:textColor="@color/font_color_blue"
-        android:id="@+id/tvAboutUs"
-        android:layout_margin="10dp"
-        android:textAppearance="@android:style/TextAppearance.Medium"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Sickday is a boutique medical house call service providing on demand acute/urgent care at your home, office or hotel.  We have been serving New Yorkers for a decade and our experience in the house call field is unmatched.  Our growth has been mainly by word of mouth. " />
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tvAboutUs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:text="Sickday is a boutique medical house call service providing on demand acute/urgent care at your home, office or hotel.  We have been serving New Yorkers for a decade and our experience in the house call field is unmatched.  Our growth has been mainly by word of mouth. "
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:textColor="@color/font_color_blue" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/splashscreen_background" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

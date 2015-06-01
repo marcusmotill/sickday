@@ -235,15 +235,22 @@ public class Home_Fragment extends Fragment implements OnMapReadyCallback, View.
                 CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(currentPosition, 14);
                 googleMap.animateCamera(yourLocation);
             }else {
-                if(googleMap.getMyLocation() != null){
-                    LatLng backUpLocation = new LatLng(googleMap.getMyLocation().getLatitude(), googleMap.getMyLocation().getLongitude());
-                    CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(backUpLocation, 14);
-                    googleMap.animateCamera(yourLocation);
+                try{
+                    if(googleMap.getMyLocation() != null){
+                        LatLng backUpLocation = new LatLng(googleMap.getMyLocation().getLatitude(), googleMap.getMyLocation().getLongitude());
+                        CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(backUpLocation, 14);
+                        googleMap.animateCamera(yourLocation);
+                    }
+                }catch (IllegalStateException e){
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), "Sorry something went wrong getting your location. Check your location settings", Toast.LENGTH_SHORT).show();
                 }
 
+
             }
-        }catch (NullPointerException e){
+        }catch (NullPointerException | IllegalStateException e){
             e.printStackTrace();
+            Toast.makeText(getActivity(), "Sorry something went wrong getting your location. Check your location settings", Toast.LENGTH_SHORT).show();
         }
 
     }

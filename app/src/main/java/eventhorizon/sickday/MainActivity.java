@@ -1,8 +1,12 @@
 package eventhorizon.sickday;
 
+import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
@@ -30,6 +34,48 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (!App.isConnected()) {
+
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+            // set title
+            alertDialogBuilder.setTitle("Please enable internet connection!");
+
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage("Click Okay to enable")
+                    .setCancelable(false)
+                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // if this button is clicked, close
+                            // current activity
+                            final ComponentName cn = new ComponentName("com.android.phone","com.android.phone.MobileNetworkSettings");
+                            final Intent intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
+                            intent.addCategory(Intent.ACTION_MAIN);
+                            intent.setComponent(cn);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // if this button is clicked, just close
+                            // the dialog box and do nothing
+                            dialog.dismiss();
+                            System.exit(0);
+                        }
+                    });
+
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+
+            // show it
+
+            alertDialog.show();
+
+        }
 
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
@@ -135,4 +181,50 @@ public class MainActivity extends ActionBarActivity
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!App.isConnected()) {
+
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+            // set title
+            alertDialogBuilder.setTitle("Please enable internet connection!");
+
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage("Click Okay to enable")
+                    .setCancelable(false)
+                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // if this button is clicked, close
+                            // current activity
+                            final ComponentName cn = new ComponentName("com.android.phone","com.android.phone.MobileNetworkSettings");
+                            final Intent intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
+                            intent.addCategory(Intent.ACTION_MAIN);
+                            intent.setComponent(cn);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // if this button is clicked, just close
+                            // the dialog box and do nothing
+                            dialog.dismiss();
+                            System.exit(0);
+                        }
+                    });
+
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+
+            // show it
+
+            alertDialog.show();
+
+        }
+    }
 }

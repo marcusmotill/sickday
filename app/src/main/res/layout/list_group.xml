@@ -1,27 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="@dimen/navigation_drawer_width"
+android:layout_height="wrap_content"
+android:orientation="vertical">
+
+<RelativeLayout
+    android:padding="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/expandable_icon"
+        android:src="@drawable/info_icon"
         android:layout_margin="10dp"
+        android:layout_centerVertical="true"
+        android:scaleType="fitCenter"
+        android:id="@+id/expandable_icon"
         android:layout_width="60dp"
-        android:layout_height="30dp"
-        android:src="@drawable/physician_mode"/>
-    <!--Size edited in ExandableListAdapter-->
-    <eventhorizon.sickday.AutoResizeTextView
-        android:id="@+id/listTitle"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:maxLines="1"
-        android:text="More Information"
-        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:layout_height="60dp"
+        />
+
+    <TextView
         android:textColor="@color/font_color_blue"
         android:textSize="25dp"
+        android:id="@+id/listTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="More Info"
         android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_toRightOf="@+id/expandable_icon"
+        android:layout_toEndOf="@+id/expandable_icon"
+        android:layout_marginLeft="10dp"
+        />
+
 </RelativeLayout>
+
+</LinearLayout>

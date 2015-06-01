@@ -12,7 +12,7 @@
         android:textColor="@color/sickday_blue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Conditions we treat"/>
+        android:text="Conditions We Treat"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"

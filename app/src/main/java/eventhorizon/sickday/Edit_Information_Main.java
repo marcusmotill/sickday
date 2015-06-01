@@ -1,5 +1,6 @@
 package eventhorizon.sickday;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,15 +9,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +27,10 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -87,7 +90,7 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
                 Edit_Profile_Fragment.toggleEditTexts();
                 bEditProfile.setText(getString(R.string.save));
             } else if (bEditProfile.getText().equals(getString(R.string.save))) {
-                if(Edit_Profile_Fragment.checkFormat()){
+                if (Edit_Profile_Fragment.checkFormat()) {
                     Edit_Profile_Fragment.toggleEditTexts();
                     bEditProfile.setText(getString(R.string.edit_profile));
                     Edit_Profile_Fragment.updateProfile();
@@ -169,7 +172,7 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
         static EditText etFirstName;
         static EditText etLastName;
         static EditText etPhone;
-        static EditText etDOB;
+        static Button bDOB;
         static ParseUser user;
         static ProgressDialog dialog;
         static TextView bAddressHome;
@@ -186,7 +189,7 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
             etFirstName = (EditText) rootView.findViewById(R.id.etInsuranceInformationFirstName);
             etLastName = (EditText) rootView.findViewById(R.id.etInsuranceInformationLastName);
             etPhone = (EditText) rootView.findViewById(R.id.etInsuranceInformationPhone);
-            etDOB = (EditText) rootView.findViewById(R.id.etInsuranceInformationDOB);
+            bDOB = (Button) rootView.findViewById(R.id.bInsuranceInformationDOB);
             tvFirstName = (TextView) rootView.findViewById(R.id.tvFirstNameLabel);
             tvLastName = (TextView) rootView.findViewById(R.id.tvLastNameLabel);
             tvPhone = (TextView) rootView.findViewById(R.id.tvPhoneLabel);
@@ -196,11 +199,12 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
 
             bAddressHome.setOnClickListener(this);
             bAddressWork.setOnClickListener(this);
+            bDOB.setOnClickListener(this);
 
             etFirstName.setTypeface(App.caecilia);
             etLastName.setTypeface(App.caecilia);
             etPhone.setTypeface(App.caecilia);
-            etDOB.setTypeface(App.caecilia);
+            bDOB.setTypeface(App.caecilia);
             tvFirstName.setTypeface(App.caecilia);
             tvLastName.setTypeface(App.caecilia);
             tvPhone.setTypeface(App.caecilia);
@@ -222,8 +226,40 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
                 addAddress("home");
             } else if (id == bAddressWork.getId()) {
                 addAddress("work");
+            } else if (id == bDOB.getId()) {
+                showDatePicker();
             }
 
+        }
+
+        private void showDatePicker() {
+            int defaultDay = 1;
+            int defaultMonth = 0;
+            int defaultYear = 1980;
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+            Date birthDay;
+            Calendar birthdayCalendar = new GregorianCalendar();
+            try {
+                birthDay = simpleDateFormat.parse(bDOB.getText().toString());
+                birthdayCalendar.setTime(birthDay);
+                defaultDay = birthdayCalendar.get(Calendar.DAY_OF_MONTH);
+                defaultMonth = birthdayCalendar.get(Calendar.MONTH);
+                defaultYear = birthdayCalendar.get(Calendar.YEAR);
+            } catch (java.text.ParseException e) {
+                e.printStackTrace();
+            }
+
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    bDOB.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
+                }
+            }, defaultYear, defaultMonth, defaultDay);
+
+
+            datePickerDialog.show();
         }
 
         private void addAddress(final String address) {
@@ -247,7 +283,7 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
             state.setTypeface(App.caecilia);
             zip.setTypeface(App.caecilia);
 
-            if(user.get(address + "_street") != null){
+            if (user.get(address + "_street") != null) {
                 street.setText(user.get(address + "_street").toString());
                 city.setText(user.get(address + "_city").toString());
                 state.setText(user.get(address + "_state").toString());
@@ -258,9 +294,9 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
             confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(isEmpty(street) | isEmpty(city) | isEmpty(state) | isEmpty(zip)){
+                    if (isEmpty(street) | isEmpty(city) | isEmpty(state) | isEmpty(zip)) {
                         Toast.makeText(context, context.getString(R.string.profilebuilder_null_field), Toast.LENGTH_LONG).show();
-                    }else {
+                    } else {
 
                         String streetString, cityString, stateString, zipString;
                         streetString = street.getText().toString();
@@ -272,9 +308,10 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
                         user.put(address + "_city", cityString.trim());
                         user.put(address + "_state", stateString.trim());
                         user.put(address + "_zip", zipString.trim());
-                        if(isInt(zipString.trim())){
+                        if (isInt(zipString.trim())) {
                             bEditProfile.setText(getString(R.string.save));
                             user.put(address + "_zip", zipString.trim());
+                            toggleEditTexts();
                             dialog.dismiss();
                         }
 
@@ -294,13 +331,13 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
             dialog.show();
         }
 
-        public boolean isInt(String testString){
-            try{
+        public boolean isInt(String testString) {
+            try {
                 Integer.parseInt(testString);
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 Toast.makeText(context, "Zip is not formatted correctly, only use numbers.", Toast.LENGTH_LONG).show();
                 return false;
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 Toast.makeText(context, "Zip is not formatted correctly, only use numbers.", Toast.LENGTH_LONG).show();
                 return false;
             }
@@ -313,7 +350,7 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
                 etFirstName.setText(user.get("firstname").toString());
                 etLastName.setText(user.get("lastname").toString());
                 etPhone.setText(user.get("phoneNumber").toString());
-                etDOB.setText(user.get("dateOfBirth").toString());
+                bDOB.setText(user.get("dateOfBirth").toString());
             }
         }
 
@@ -326,12 +363,12 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
                 etFirstName.setEnabled(false);
                 etLastName.setEnabled(false);
                 etPhone.setEnabled(false);
-                etDOB.setEnabled(false);
+                bDOB.setEnabled(false);
             } else {
                 etFirstName.setEnabled(true);
                 etLastName.setEnabled(true);
                 etPhone.setEnabled(true);
-                etDOB.setEnabled(true);
+                bDOB.setEnabled(true);
             }
         }
 
@@ -339,7 +376,7 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
             user.put("firstname", etFirstName.getText().toString());
             user.put("lastname", etLastName.getText().toString());
             user.put("phoneNumber", etPhone.getText().toString());
-            user.put("dateOfBirth", etDOB.getText().toString());
+            user.put("dateOfBirth", bDOB.getText().toString());
             user.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
@@ -356,17 +393,18 @@ public class Edit_Information_Main extends Fragment implements View.OnClickListe
 
         public static boolean checkFormat() {
 
-            if(isEmpty(etFirstName) | isEmpty(etLastName) | isEmpty(etPhone) | isEmpty(etDOB)){
+            if (isEmpty(etFirstName) | isEmpty(etLastName) | isEmpty(etPhone)) {
                 Toast.makeText(context, context.getString(R.string.profilebuilder_null_field), Toast.LENGTH_LONG).show();
                 return false;
-            }else if(!etDOB.getText().toString().matches("[0-9][0-9]\\/[0-9][0-9]\\/[0-9][0-9][0-9][0-9]")){
-                Toast.makeText(context, "Please put D.O.B. in the form MM/DD/YYYY", Toast.LENGTH_LONG).show();
+            } else if (bDOB.getText().equals("MM/DD/YYYY")) {
+                Toast.makeText(context, context.getString(R.string.profilebuilder_null_field), Toast.LENGTH_LONG).show();
                 return false;
-            }else{
+            } else {
                 return true;
             }
 
         }
+
     }
 
     public static class Edit_Insurance_Information_Fragment extends Fragment {

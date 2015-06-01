@@ -52,7 +52,7 @@
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white" />
 
-            <EditText
+            <Button
                 android:textCursorDrawable="@null"
                 android:id="@+id/formDOB"
                 android:layout_width="match_parent"
@@ -60,9 +60,8 @@
                 android:layout_below="@+id/formPhoneNumber"
                 android:layout_margin="10dp"
                 android:background="@color/sickday_blue"
-                android:hint="Date of Birth"
+                android:text="Date of Birth MM/DD/YYYY"
                 android:padding="10dp"
-                android:inputType="date"
                 android:textAppearance="@android:style/TextAppearance.Large"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white" />

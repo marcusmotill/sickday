@@ -19,7 +19,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
                 android:gravity="center"
                 android:text="@string/welcome_message"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -51,27 +54,6 @@
                     android:text="@string/medical_house_calls"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                <ImageView
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:id="@+id/imHome"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/home_address_icon"
-                    android:layout_below="@+id/tvHomeOfficeHotel"
-                    android:layout_alignLeft="@+id/tvHomeOfficeHotel"
-                    android:layout_alignStart="@+id/tvHomeOfficeHotel" />
-
-                <ImageView
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:id="@+id/imOffice"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/office_icon"
-                    android:layout_below="@+id/tvHomeOfficeHotel"
-                    android:layout_alignRight="@+id/tvHomeOfficeHotel"
-                    android:layout_alignEnd="@+id/tvHomeOfficeHotel" />
 
                 <TextView
                     android:layout_below="@+id/imLogo"
@@ -93,6 +75,7 @@
                     />
             </RelativeLayout>
             <EditText
+                android:layout_marginTop="10dp"
                 android:layout_below="@id/contentLayout"
                 android:id="@+id/welcomeEmail"
                 android:layout_width="match_parent"
@@ -136,6 +119,15 @@
                 android:layout_below="@+id/loginPopupPassword"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/tvForgotPassword"
+                android:textAppearance="@android:style/TextAppearance.Small"
+                android:gravity="center"
+                android:layout_below="@id/tvIncorrectLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Forgot password?"/>
         </RelativeLayout>
     </ScrollView>
 
@@ -143,10 +135,10 @@
         android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/loginButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@color/sickday_blue"
+        android:layout_alignParentBottom="true"
         android:text="@string/sign_up"
         android:textAppearance="@android:style/TextAppearance.Large"
         android:textColor="@android:color/white" />
@@ -154,10 +146,11 @@
     <Button
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
+        android:layout_above="@id/registerButton"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@color/sickday_blue"
         android:text="@string/log_in"
         android:textAppearance="@android:style/TextAppearance.Large"

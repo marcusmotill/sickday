@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <EditText
+        android:inputType="textCapWords"
         android:textCursorDrawable="@null"
         android:id="@+id/addressStreet"
         android:layout_width="match_parent"
@@ -16,6 +17,7 @@
         android:textColorHint="@android:color/white" />
 
     <EditText
+        android:inputType="textCapWords"
         android:textCursorDrawable="@null"
         android:id="@+id/addressCity"
         android:layout_width="match_parent"
@@ -29,6 +31,7 @@
         android:textColorHint="@android:color/white" />
 
     <EditText
+        android:inputType="textCapWords"
         android:textCursorDrawable="@null"
         android:id="@+id/addressState"
         android:layout_width="match_parent"
